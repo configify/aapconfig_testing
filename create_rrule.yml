@@ -1,0 +1,16 @@
+---
+- name: Include vars
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Set parameters
+      ansible.builtin.set_fact:
+        frequency: 'month'
+        start_date: '2025-03-03 17:00:00'
+        every_x_weekday: 'third sunday'
+    #    end_after: '365'
+     #   repetition: 4
+
+- name: Run playbook to create rrule for a schedule
+  import_playbook: configify.aapconfig.aap_create_rrule.yml

@@ -1,0 +1,51 @@
+---
+- name: Run playbook to get published collections
+  import_playbook: configify.aapconfig.aap_audit_collections.yml
+
+- name: Run playbook to get controller settings
+  import_playbook: configify.aapconfig.aap_audit_settings.yml
+
+- name: Run playbook to get authentication settings
+  import_playbook: configify.aapconfig.aap_audit_authentication.yml
+
+- name: Run playbook to get users
+  import_playbook: configify.aapconfig.aap_audit_users.yml
+
+- name: Run playbook to get execution environments
+  import_playbook: configify.aapconfig.aap_audit_execution_environments.yml
+
+- name: Run playbook to get instance groups
+  import_playbook: configify.aapconfig.aap_audit_instance_groups.yml
+
+- name: Run playbook to get credential types
+  import_playbook: configify.aapconfig.aap_audit_credential_types.yml
+
+- name: Run playbook to get credentials
+  import_playbook: configify.aapconfig.aap_audit_credentials.yml
+
+- name: Run playbook to get organizations
+  import_playbook: configify.aapconfig.aap_audit_organizations.yml
+
+- name: Run playbook to get notification profiles
+  import_playbook: configify.aapconfig.aap_audit_notification_profiles.yml
+
+- name: Run playbook to get teams
+  import_playbook: configify.aapconfig.aap_audit_teams.yml
+
+- name: Run playbook to get projects
+  import_playbook: configify.aapconfig.aap_audit_projects.yml
+
+- name: Run playbook to get inventories
+  import_playbook: configify.aapconfig.aap_audit_inventories.yml
+
+- name: Run playbook to get templates
+  import_playbook: configify.aapconfig.aap_audit_templates.yml
+
+- name: Run playbook to get roles
+  import_playbook: configify.aapconfig.aap_audit_roles.yml
+
+- name: Run playbook to get published schedules
+  import_playbook: configify.aapconfig.aap_audit_schedules.yml
+
+- name: Run playbook to get workflows
+  import_playbook: configify.aapconfig.aap_audit_workflows.yml

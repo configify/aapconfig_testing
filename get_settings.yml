@@ -1,0 +1,3 @@
+---
+- name: Run playbook to get Controller settings
+  import_playbook: configify.aapconfig.aap_audit_settings.yml

@@ -1,0 +1,372 @@
+hub_objects_collections: [
+  {'namespace': 'community', 'name': 'general', 'filename': 'community-general-8.2.0.tar.gz'},
+
+  {'namespace': 'infra', 'name': 'ah_configuration', 'filename': 'infra-ah_configuration-2.1.0.tar.gz'}
+] # type: ignore
+
+controller_settings_ldap: {
+  'AUTH_LDAP_1_START_TLS': true,
+  'AUTH_LDAP_BIND_DN': 'CN=josie,CN=users,DC=example,DC=com'
+} # type: ignore
+
+controller_authentication: [
+  {
+    'configuration': {
+      'CONNECTION_OPTIONS': {},
+      'GROUP_TYPE': 'MemberDNGroupType',
+      'GROUP_TYPE_PARAMS': {
+        'member_attr': 'member',
+        'name_attr': 'cn'
+      },
+      'SERVER_URI': [
+        'ldap://examplea'
+      ],
+      'START_TLS': false,
+      'USER_ATTR_MAP': {
+        'email': 'a@example.com'
+      }
+    },
+    'enabled': true,
+    'name': 'Auth LDAP A',
+    'type': 'ansible_base.authentication.authenticator_plugins.ldap'
+  },
+  {
+    'configuration': {
+      'CONNECTION_OPTIONS': {},
+      'GROUP_TYPE': 'MemberDNGroupType',
+      'GROUP_TYPE_PARAMS': {
+        'member_attr': 'member',
+        'name_attr': 'cn'
+      },
+      'SERVER_URI': [
+        'ldap://examplec'
+      ],
+      'START_TLS': false,
+      'USER_ATTR_MAP': {
+        'email': 'c@example.com'
+      }
+    },
+    'enabled': true,
+    'name': 'Auth LDAP C',
+    'type': 'ansible_base.authentication.authenticator_plugins.ldap'
+  }
+] # type: ignore
+
+controller_settings_jobs: {
+  'AWX_ISOLATION_SHOW_PATHS': [],
+  'GALAXY_IGNORE_CERTS': true
+} # type: ignore
+
+controller_objects_users: [
+  {'username': 'UserA', 'first_name': 'aaa', 'last_name': '', 'email': 'usera@example.com',
+   'superuser': False, 'auditor': False, 'pass': '$encrypted$'},
+
+  {'username': 'UserA_Superuser', 'first_name': 'aaasss', 'last_name': '', 'email': 'usera@example.com',
+   'superuser': True, 'auditor': False, 'pass': '$encrypted$'},
+
+  {'username': 'UserC', 'first_name': 'ccc', 'last_name': '', 'email': '',
+   'superuser': False, 'auditor': False, 'pass': '$encrypted$'},
+
+  {'username': 'UserC_Auditor', 'first_name': 'cccaaa', 'last_name': '', 'email': '',
+   'superuser': False, 'auditor': True, 'pass': '$encrypted$'}
+] # type: ignore
+
+controller_objects_execution_environments: [
+  {'name': 'Execution Environment A', 'descr': '', 'image': '{{ hub_host }}/ee-minimal-rhel8:latest', 'pull': 'missing'},
+  {'name': 'Automation Hub Minimal execution environment', 'descr': '', 'image': '{{ hub_host }}/ee-minimal-rhel8:latest', 'pull': 'missing'},
+  {'name': 'Automation Hub Default execution environment', 'descr': '', 'image': '{{ hub_host }}/ee-supported-rhel8:latest', 'pull': 'missing'}
+] # type: ignore
+
+controller_objects_instance_groups: [
+  {'name': 'Auto IG A', 'minimum': 1, 'percentage': 100, 'instances': []},
+
+  {'name': 'Auto IG C', 'minimum': 1, 'percentage': 100, 'instances': []},
+
+  {'name': 'Static IG A', 'minimum': 1, 'percentage': 0, 'instances': ["{{ controller_host }}"]},
+
+  {'name': 'Static IG C', 'minimum': 1, 'percentage': 0, 'instances': []}
+] # type: ignore
+
+controller_objects_credential_types: [
+  {'name': 'Credential Type A', 'descr': '',
+   'inputs': {'fields': [{'id': 'usernameA', 'type': 'string', 'label': 'Username'},
+                         {'id': 'passwordA', 'type': 'string', 'label': 'Password'}]},
+   'injectors': {'extra_vars': {'configifyadpass': !unsafe '{{ passwordA }}', 'configifyaduser': !unsafe '{{ usernameA }}'}}},
+
+  {'name': 'Credential Type C', 'descr': '',
+   'inputs': {'fields': [{'id': 'usernameC', 'type': 'string', 'label': 'Username'},
+                         {'id': 'passwordC', 'type': 'string', 'label': 'Password'}]},
+   'injectors': {'extra_vars': {'configifyadpass': !unsafe '{{ passwordC }}', 'configifyaduser': !unsafe '{{ usernameC }}'}}}
+] # type: ignore
+
+controller_objects_credentials_organizational: [
+  {'name': 'Credential A', 'org': 'Default', 'descr': '', 'type': 'Ansible Galaxy/Automation Hub API Token',
+   'inputs': {'url': 'https://examplea', 'token': 'HIDDEN', 'auth_url': ''},
+   'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
+
+  {'name': 'Credential C', 'org': 'Default', 'descr': '', 'type': 'Ansible Galaxy/Automation Hub API Token',
+   'inputs': {'url': 'https://examplec', 'token': 'HIDDEN', 'auth_url': ''},
+   'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
+
+  {'name': 'Credential Custom A', 'org': 'Default', 'descr': '', 'type': 'Credential Type A',
+   'inputs': {'passwordA': 'HIDDEN', 'usernameA': 'UsernameA'},
+   'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
+
+  {'name': 'Credential Custom C', 'org': 'Default', 'descr': '', 'type': 'Credential Type C',
+   'inputs': {'passwordC': 'HIDDEN', 'usernameC': 'UsernameC'},
+   'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
+
+  {'name': 'Credential GitHub A', 'org': 'Org A', 'descr': '', 'type': 'Source Control',
+   'inputs': {'password': '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', 'username': 'kk-at-redhat'},
+   'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
+
+  {'name': 'Credential GitHub C', 'org': 'Org C', 'descr': '', 'type': 'Source Control',
+   'inputs': {'password': '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', 'username': 'kk-at-redhat'},
+   'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
+
+  {'name': 'Credential Machine A', 'org': 'Org A', 'descr': '', 'type': 'Machine',
+   'inputs': {'password': 'HIDDEN', 'username': 'aaa', 'become_method': '', 'become_username': ''},
+   'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
+
+  {'name': 'Credential Machine C', 'org': 'Org C', 'descr': '', 'type': 'Machine',
+   'inputs': {'password': 'HIDDEN', 'username': 'ccc', 'become_method': '', 'become_username': ''},
+   'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''}
+] # type: ignore
+
+controller_objects_organizations: [
+  {'name': 'Org A', 'descr': '', 'creds': ['Credential A']},
+  {'name': 'Org C', 'descr': '', 'creds': ['Credential C']}
+] # type: ignore
+
+controller_objects_notification_profiles: [
+  {'name': 'Notification Email A', 'descr': '', 'notification_type': 'email',
+   'notification_config': {'host': 'examplea.com', 'port': 25, 'sender': 'a@examplea.com', 'timeout': 30, 'use_ssl': False, 'use_tls': False, 'password': '', 'username': '', 'recipients': ['aaa@examplea.com']},
+   'org': 'Org A',
+   'messages': {'error': {'body': !unsafe ' #{{ job.id }} had status {{ job.status }}, view details at {{ url }}\n\n{{ job_metadata }}',
+                          'message': !unsafe ' #{{ job.id }} "{{ job.name }}" {{ job.status }}: {{ url }}'},
+                'started': {'body': !unsafe '#{{ job.id }} had status {{ job.status }}, view details at {{ url }}\n\n{{ job_metadata }}',
+                            'message': !unsafe '"{{ job.name }}" {{ job.status }}: {{ url }}'},
+                'success': {'body': !unsafe ' #{{ job.id }} had status {{ job.status }}, view details at {{ url }}\n\n{{ job_metadata }}',
+                            'message': !unsafe '#{{ job.id }} "{{ job.name }}" {{ job.status }}: {{ url }}'}}},
+
+  {'name': 'Notification Hook C', 'descr': '', 'notification_type': 'webhook',
+   'notification_config': {'url': 'https://examplec.com',
+                           'headers': {},
+                           'password': '',
+                           'username': '',
+                           'http_method': 'POST',
+                           'disable_ssl_verification': False},
+   'org': 'Org C'},
+
+  {'name': 'Notification Slack A', 'descr': '', 'notification_type': 'slack',
+   'notification_config': {'token': '$encrypted$',
+                           'channels': ['aaa'],
+                           'hex_color': ''},
+   'org': 'Org A'}
+] # type: ignore
+
+controller_objects_teams: [
+  {'name': 'Team A', 'descr': '', 'org': 'Org A'},
+  {'name': 'Team C', 'descr': '', 'org': 'Org C'}
+] # type: ignore
+
+controller_objects_projects: [
+  {'name': 'Project A', 'type': 'git', 'branch': '', 'scm_clean': False, 'scm_delete': False, 'scm_update': False,
+   'org': 'Org A', 'url': 'https://github.com/configify/hi.git'},
+
+  {'name': 'Project C', 'type': 'git', 'branch': '', 'scm_clean': False, 'scm_delete': False, 'scm_update': False,
+   'org': 'Org C', 'url': 'https://github.com/configify/hi.git'},
+
+  {'name': 'Project with Creds A', 'type': 'git', 'branch': '', 'scm_clean': False, 'scm_delete': False, 'scm_update': False,
+   'org': 'Org A', 'cred': 'Credential GitHub A', 'url': 'https://github.com/configify/hi.git'},
+
+  {'name': 'Project with Creds C', 'type': 'git', 'branch': '', 'scm_clean': False, 'scm_delete': False, 'scm_update': False,
+   'org': 'Org C', 'cred': 'Credential GitHub C', 'url': 'https://github.com/configify/hi.git'}
+] # type: ignore
+
+controller_objects_inventories_smart: [
+  {'name': 'Smart A', 'description': '', 'org': 'Org A', 'variables': {}, 'host_filter': 'name__icontains=B'}
+] # type: ignore
+
+controller_objects_inventories_constructed: [
+  {'name': 'Inventory Constructed A', 'description': '', 'org': 'Org A',
+   'input': ['Inventory Static A'],
+   'host_filter': '',
+   'source_vars': {'plugin': 'constructed', 'strict': True}, 'limit': 'Group A1',
+   'source': ''},
+
+  {'name': 'Inventory Constructed C', 'description': '', 'org': 'Org C',
+   'input': ['Inventory Static C'],
+   'host_filter': '',
+   'source_vars': {'plugin': 'constructed', 'strict': True}, 'limit': 'Group C1',
+   'source': ''}
+] # type: ignore
+
+controller_objects_inventories_dynamic: [
+  {'name': 'Inventory Dynamic A', 'description': '', 'org': 'Org A', 'host_filter': '',
+   'prevent_fallback': False, 'variables': {},
+   'sources': [{'name': 'Inventory Source A', 'description': '', 'enabled_value': '', 'enabled_var': '',
+                'host_filter': '', 'overwrite': False, 'overwrite_vars': False, 'project': 'Project with Creds A', 'source': 'scm',
+                'source_path': '', 'extra_vars': {}, 'timeout': 0, 'update_cache_timeout': 0,
+                'update_on_launch': False, 'verbosity': 1}]},
+
+  {'name': 'Inventory Dynamic C', 'description': '', 'org': 'Org C', 'host_filter': '',
+   'prevent_fallback': False, 'variables': {},
+   'sources': [{'name': 'Inventory Source C', 'description': '', 'enabled_value': '', 'enabled_var': '',
+                'host_filter': '', 'overwrite': False, 'overwrite_vars': False, 'project': 'Project with Creds C', 'source': 'scm',
+                'source_path': '', 'extra_vars': {}, 'timeout': 0, 'update_cache_timeout': 0,
+                'update_on_launch': False, 'verbosity': 1}]}
+] # type: ignore
+
+controller_objects_inventories_static: [
+  {'name': 'Inventory Static A', 'description': '', 'org': 'Org A', 'host_filter': '', 'prevent_fallback': False,
+   'variables': {},
+   'hosts': [],
+   'groups': [{'name': 'Group A1', 'description': '', 'variables': {}, 'subgroups': ['Group A2'], 'hosts': []},
+              {'name': 'Group A2', 'description': '', 'variables': {}, 'subgroups': [], 'hosts': [{'name': 'Host A', 'description': '', 'variables': {}}]}]},
+
+  {'name': 'Inventory Static C', 'description': '', 'org': 'Org C', 'host_filter': '', 'prevent_fallback': False,
+   'variables': {},
+   'hosts': [{'name': 'Host C2', 'description': '', 'variables': {}}],
+   'groups': [{'name': 'Group C1', 'description': '', 'variables': {}, 'subgroups': ['Group C2'], 'hosts': []},
+              {'name': 'Group C2', 'description': '', 'variables': {}, 'subgroups': [], 'hosts': [{'name': 'Host C', 'description': '', 'variables': {}}]}]}
+] # type: ignore
+
+controller_objects_templates: [
+  {'name': 'Template A', 'description': '', 'playbook': 'hi.yml', 'execution_environment': '',
+   'project': 'Project with Creds A', 'allow_simultaneous': False, 'ask_credential_on_launch': False, 'ask_diff_mode_on_launch': False,
+   'ask_execution_environment_on_launch': False, 'ask_forks_on_launch': False, 'ask_instance_groups_on_launch': False,
+   'ask_inventory_on_launch': False, 'ask_job_slice_count_on_launch': False, 'ask_job_type_on_launch': False,
+   'ask_labels_on_launch': False, 'ask_limit_on_launch': False, 'ask_scm_branch_on_launch': False,
+   'ask_skip_tags_on_launch': False, 'ask_tags_on_launch': False, 'ask_timeout_on_launch': False,
+   'ask_variables_on_launch': False, 'ask_verbosity_on_launch': False, 'become_enabled': False, 'diff_mode': False,
+   'force_handlers': False, 'forks': 0, 'host_config_key': '', 'inventory': 'Inventory Dynamic A', 'job_slice_count': 1,
+   'job_tags': '', 'job_type': 'run', 'limit': '', 'prevent_instance_group_fallback': False, 'scm_branch': '',
+   'skip_tags': '', 'start_at_task': '', 'survey_enabled': False, 'timeout': 0, 'use_fact_cache': False, 'verbosity': 0,
+   'survey': {},
+   'extra_vars': {},
+   'webhook_service': '', 'webhook_credential': None,
+   'creds': ['Credential Machine A'],
+   'notifications_on_start': ['Notification Email A', 'Notification Slack A'], 'notifications_on_success': [], 'notifications_on_failure': ['Notification Slack A']},
+
+  {'name': 'Template C', 'description': '', 'playbook': 'hi.yml', 'execution_environment': 'Execution Environment A',
+   'project': 'Project with Creds C', 'allow_simultaneous': False, 'ask_credential_on_launch': False, 'ask_diff_mode_on_launch': False,
+   'ask_execution_environment_on_launch': False, 'ask_forks_on_launch': False, 'ask_instance_groups_on_launch': False,
+   'ask_inventory_on_launch': False, 'ask_job_slice_count_on_launch': False, 'ask_job_type_on_launch': False,
+   'ask_labels_on_launch': False, 'ask_limit_on_launch': False, 'ask_scm_branch_on_launch': False,
+   'ask_skip_tags_on_launch': False, 'ask_tags_on_launch': False, 'ask_timeout_on_launch': False,
+   'ask_variables_on_launch': False, 'ask_verbosity_on_launch': False, 'become_enabled': False, 'diff_mode': False,
+   'force_handlers': False, 'forks': 0, 'host_config_key': '', 'inventory': 'Inventory Dynamic C', 'job_slice_count': 1,
+   'job_tags': '', 'job_type': 'run', 'limit': '', 'prevent_instance_group_fallback': False, 'scm_branch': '',
+   'skip_tags': '', 'start_at_task': '', 'survey_enabled': False, 'timeout': 0, 'use_fact_cache': False, 'verbosity': 0,
+   'survey': {},
+   'extra_vars': {},
+   'webhook_service': '', 'webhook_credential': None,
+   'creds': ['Credential Machine C'],
+   'notifications_on_start': ['Notification Hook C'], 'notifications_on_success': ['Notification Hook C'], 'notifications_on_failure': ['Notification Hook C']}
+] # type: ignore
+
+controller_objects_roles_instance_groups: [
+  {'team': 'Team A', 'role': 'Admin', 'ig': 'Static IG A'},
+  {'team': 'Team C', 'role': 'Use', 'ig': 'Auto IG C'},
+
+  {'user': 'UserA', 'role': 'Admin', 'ig': 'Auto IG A'},
+  {'user': 'UserC', 'role': 'Use', 'ig': 'Static IG C'}
+] # type: ignore
+
+controller_objects_roles_organization: [
+  {'team': 'Team A', 'role': 'Approve', 'org': 'Org A'},
+  {'team': 'Team C', 'role': 'Execute', 'org': 'Org C'},
+
+  {'user': 'UserA', 'role': 'Admin', 'org': 'Org A'},
+  {'user': 'UserA', 'role': 'Member', 'org': 'Org A'},
+  {'user': 'UserA', 'role': 'Project Admin', 'org': 'Org C'},
+  {'user': 'UserC', 'role': 'Execute', 'org': 'Org C'},
+  {'user': 'UserC', 'role': 'Member', 'org': 'Org C'}
+] # type: ignore
+
+controller_objects_roles_credential: [
+  {'team': 'Team A', 'role': 'Admin', 'cred': 'Credential Machine A'},
+  {'team': 'Team C', 'role': 'Use', 'cred': 'Credential GitHub C'},
+
+  {'user': 'UserA', 'role': 'Admin', 'cred': 'Credential GitHub A'},
+  {'user': 'UserC', 'role': 'Use', 'cred': 'Credential Machine C'}
+] # type: ignore
+
+controller_objects_roles_template: [
+  {'team': 'Team A', 'role': 'Admin', 'template': 'Template A'},
+  {'team': 'Team C', 'role': 'Execute', 'template': 'Template C'},
+
+  {'user': 'UserA', 'role': 'Admin', 'template': 'Template A'},
+  {'user': 'UserC', 'role': 'Execute', 'template': 'Template C'}
+] # type: ignore
+
+controller_objects_roles: [
+  {'team': 'Team A', 'role': 'JobTemplate Admin', 'object_type': 'jobtemplate', 'object_name': 'Template A'},
+  {'team': 'Team A', 'role': 'Organization Approval', 'object_type': 'organization', 'object_name': 'Org A'},
+  {'user': 'UserA', 'role': 'Credential Use', 'object_type': 'credential', 'object_name': 'Credential GitHub A'},
+  {'user': 'UserA', 'role': 'InstanceGroup Use', 'object_type': 'instancegroup', 'object_name': 'Static IG A'},
+  {'user': 'UserA', 'role': 'InstanceGroup Use', 'object_type': 'instancegroup', 'object_name': 'Auto IG A'},
+  {'user': 'UserA', 'role': 'Inventory Use', 'object_type': 'inventory', 'object_name': 'Inventory Static A'},
+  {'user': 'UserA', 'role': 'Project Admin', 'object_type': 'project', 'object_name': 'Project with Creds A'},
+  {'user': 'UserA', 'role': 'Project Admin', 'object_type': 'project', 'object_name': 'Project A'},
+  {'user': 'UserA', 'role': 'Organization Audit', 'object_type': 'organization', 'object_name': 'Org C'},
+  {'user': 'UserA', 'role': 'JobTemplate Execute', 'object_type': 'jobtemplate', 'object_name': 'Template A'}
+] # type: ignore
+
+gateway_objects_roles: [
+  {'user': 'UserA', 'role': 'Organization Member', 'object_type': 'organization', 'object_name': 'Org A'},
+  {'user': 'UserA', 'role': 'Organization Member', 'object_type': 'organization', 'object_name': 'Org C'}
+] # type: ignore
+
+controller_objects_schedules: [
+  {'name': 'Schedule A', 'descr': '', 'template': 'Template A',
+   'rules': 'DTSTART;TZID=America/Toronto:20250205T200000 RRULE:INTERVAL=1;FREQ=DAILY'},
+
+  {'name': 'Cleanup Activity Schedule', 'descr': 'Automatically Generated Schedule', 'template': 'Cleanup Activity Stream',
+   'rules': 'DTSTART:20240608T043855Z RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TU'},
+
+  {'name': 'Schedule C', 'descr': '', 'template': 'Template C',
+   'rules': 'DTSTART;TZID=America/Toronto:20250205T200000 RRULE:INTERVAL=1;FREQ=MONTHLY'},
+
+  {'name': 'Cleanup Expired OAuth 2 Tokens', 'descr': 'Removes expired OAuth 2 access and refresh tokens', 'template': 'Cleanup Expired OAuth 2 Tokens',
+   'rules': 'DTSTART:20240608T044013Z RRULE:FREQ=WEEKLY;INTERVAL=1'},
+
+  {'name': 'Cleanup Expired Sessions', 'descr': 'Cleans out expired browser sessions', 'template': 'Cleanup Expired Sessions',
+   'rules': 'DTSTART:20240608T044013Z RRULE:FREQ=WEEKLY;INTERVAL=1'},
+
+  {'name': 'Cleanup Job Schedule', 'descr': 'Automatically Generated Schedule', 'template': 'Cleanup Job Details',
+   'rules': 'DTSTART:20240608T043855Z RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=SU'}
+] # type: ignore
+
+controller_objects_workflows: [
+  {'name': 'Workflow A', 'descr': '', 'org': 'Org A', 'inventory': 'Inventory Static A',
+   'allow_simultaneous': False, 'ask_inventory_on_launch': False, 'ask_labels_on_launch': False, 'ask_limit_on_launch': False, 'ask_scm_branch_on_launch': False,
+   'ask_skip_tags_on_launch': False, 'ask_tags_on_launch': False, 'ask_variables_on_launch': False,
+   'extra_vars': {}, 'job_tags': '', 'limit': '', 'scm_branch': '', 'skip_tags': '', 'survey_enabled': False, 'webhook_credential': '', 'webhook_service': '',
+   'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': [], 'notifications_on_approval': [],
+   'nodes': [{'extra_data': {}, 'scm_branch': '', 'job_type': '', 'job_tags': '', 'skip_tags': '', 'limit': '', 'diff_mode': '', 'verbosity': '',
+              'forks': '', 'job_slice_count': '', 'timeout': '', 'all_parents_must_converge': False,
+              'identifier': '1ca40111-f92b-435e-bff2-b33edd455941',
+              'unified_job_template': {'organization': {'name': 'Org C', 'type': 'organization'}, 'name': 'Template C', 'type': 'job_template'},
+              'related': {'credentials': [],
+                          'success_nodes': [],
+                          'failure_nodes': [],
+                          'always_nodes': []}},
+             {'extra_data': {}, 'scm_branch': '', 'job_type': '', 'job_tags': '', 'skip_tags': '', 'limit': '', 'diff_mode': '', 'verbosity': '',
+              'forks': '', 'job_slice_count': '', 'timeout': '', 'all_parents_must_converge': False,
+              'identifier': '86e11000-e8a2-4ca6-9637-18cd29846f59',
+              'unified_job_template': {'organization': {'name': 'Org A', 'type': 'organization'}, 'name': 'Template A', 'type': 'job_template'},
+              'related': {'credentials': [],
+                          'success_nodes': [{'identifier': '1ca40111-f92b-435e-bff2-b33edd455941', 'type': 'workflow_job_template_node'}],
+                          'failure_nodes': [{'identifier': '94638f3b-b22d-4faa-a306-393791ef0c89', 'type': 'workflow_job_template_node'}],
+                          'always_nodes': []}},
+             {'extra_data': {}, 'scm_branch': '', 'job_type': '', 'job_tags': '', 'skip_tags': '', 'limit': '', 'diff_mode': '', 'verbosity': '',
+              'forks': '', 'job_slice_count': '', 'timeout': '', 'all_parents_must_converge': False,
+              'identifier': '94638f3b-b22d-4faa-a306-393791ef0c89',
+              'unified_job_template': {'organization': {'name': 'Org A', 'type': 'organization'}, 'name': 'Template A', 'type': 'job_template'},
+              'related': {'credentials': [],
+                          'success_nodes': [],
+                          'failure_nodes': [],
+                          'always_nodes': []}}]}
+] # type: ignore

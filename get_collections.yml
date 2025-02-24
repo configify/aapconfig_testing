@@ -1,0 +1,3 @@
+---
+- name: Run playbook to get published collections
+  import_playbook: configify.aapconfig.aap_audit_collections.yml

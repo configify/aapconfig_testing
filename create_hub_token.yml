@@ -1,0 +1,3 @@
+---
+- name: Run playbook to create hub token
+  import_playbook: configify.aapconfig.aap_create_hub_token.yml

@@ -1,0 +1,3 @@
+---
+- name: Run playbook to get projects
+  import_playbook: configify.aapconfig.aap_audit_projects.yml

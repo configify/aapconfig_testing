@@ -1,0 +1,43 @@
+hub_objects_collections: [] # type: ignore
+
+controller_settings_ldap: {} # type: ignore
+controller_authentication: [] # type: ignore
+
+controller_settings_jobs: {} # type: ignore
+
+controller_objects_users: [] # type: ignore
+controller_objects_teams: [] # type: ignore
+
+controller_objects_execution_environments: [] # type: ignore
+
+controller_objects_notification_profiles: [] # type: ignore
+
+controller_objects_roles_organization: [] # type: ignore
+controller_objects_roles_instance_groups: [] # type: ignore
+controller_objects_roles_credential: [] # type: ignore
+controller_objects_roles_template: [] # type: ignore
+
+controller_objects_roles: [] # type: ignore
+gateway_objects_roles: [] # type: ignore
+
+controller_objects_instance_groups: [] # type: ignore
+
+controller_objects_credential_types: [] # type: ignore
+
+controller_objects_credentials_organizational: [] # type: ignore
+controller_objects_credentials_personal: [] # type: ignore
+
+controller_objects_organizations: [] # type: ignore
+
+controller_objects_inventories_dynamic: [] # type: ignore
+controller_objects_inventories_static: [] # type: ignore
+controller_objects_inventories_constructed: [] # type: ignore
+controller_objects_inventories_smart: [] # type: ignore
+
+controller_objects_projects: [] # type: ignore
+
+controller_objects_templates: [] # type: ignore
+
+controller_objects_schedules: [] # type: ignore
+
+controller_objects_workflows: [] # type: ignore
