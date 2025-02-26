@@ -1,4 +1,4 @@
-hub_objects_collections: [] # type: ignore
+hub_objects_collections: [{'namespace': 'community', 'name': 'general', 'filename': 'community-general-8.2.0.tar.gz'}] # type: ignore
 
 controller_settings_ldap: {} # type: ignore
 controller_authentication: [] # type: ignore
