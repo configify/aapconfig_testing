@@ -64,7 +64,7 @@ Confirm that exported objects match configurations.
 Playbooks below should not report anything "changed":
 
 ```
-ansible-playbook configure_aap_2.4_SetB.yml --check
+ansible-playbook configure_aap_2.4_SetB.yml --check &&
 ansible-playbook configure_aap_2.4_SetB.yml
 ```
 
@@ -98,7 +98,7 @@ ansible-playbook configure_aap_2.5_SetA.yml -e delete_objects=true -e wait_proje
 
 echo "######################################################################################\n####### GET ALL (SET A)\n######################################################################################" &&
 
-ansible-playbook get_all_objects.yml
+ansible-playbook get_all_objects.yml &&
 
 echo "######################################################################################\n####### SET B CHECK\n######################################################################################" &&
 
@@ -119,7 +119,7 @@ Confirm that exported objects match configurations.
 Playbooks below should not report anything "changed":
 
 ```
-ansible-playbook configure_aap_2.5_SetB.yml --check
+ansible-playbook configure_aap_2.5_SetB.yml --check &&
 ansible-playbook configure_aap_2.5_SetB.yml
 ```
 
