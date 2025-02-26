@@ -130,11 +130,11 @@ controller_objects_credentials_organizational: [
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
 
   {'name': 'Credential GitHub B', 'org': 'Org B', 'descr': '', 'type': 'Source Control',
-   'inputs': {'password': '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', 'username': 'kk-at-redhat'},
+   'inputs': {'password': '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', 'username': 'kk-at-redhat'},
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
 
   {'name': 'Credential GitHub C', 'org': 'Org C', 'descr': 'Github C', 'type': 'Source Control',
-   'inputs': {'password': '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', 'username': 'kk-at-redhat'},
+   'inputs': {'password': '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', 'username': 'kk-at-redhat'},
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
 
   {'name': 'Credential Machine B', 'org': 'Org B', 'descr': '', 'type': 'Machine',
