@@ -10,7 +10,8 @@ TLDR:
 ## Linting
 
 ```
-ansible-lint *
+ansible-lint * &&
+ansible-test sanity
 ```
 
 ## Testing from command line
