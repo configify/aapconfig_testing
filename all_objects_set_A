@@ -156,13 +156,15 @@ controller_objects_notification_profiles: [
                            'username': '',
                            'http_method': 'POST',
                            'disable_ssl_verification': False},
-   'org': 'Org C'},
+   'org': 'Org C',
+   'messages': {}},
 
   {'name': 'Notification Slack A', 'descr': '', 'notification_type': 'slack',
    'notification_config': {'token': '$encrypted$',
                            'channels': ['aaa'],
                            'hex_color': ''},
-   'org': 'Org A'}
+   'org': 'Org A',
+   'messages': {}}
 ] # type: ignore
 
 controller_objects_teams: [
