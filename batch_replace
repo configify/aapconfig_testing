@@ -1,0 +1,306 @@
+////////////////////////////
+// Ansible output
+
+replace-regex "TASK .*"
+with ""
+
+replace-regex "ok:.*"
+with ""
+
+replace-regex "skipping.*"
+with ""
+
+////////////////////////////
+// Quotes and extra spaces
+
+replace "    "hub_objects_collections""
+with "hub_objects_collections"
+
+replace "    "controller_settings_ldap""
+with "controller_settings_ldap"
+
+replace "    "controller_settings_authentication""
+with "controller_settings_authentication"
+
+replace "    "controller_authentication""
+with "controller_authentication"
+
+replace "    "controller_settings_jobs""
+with "controller_settings_jobs"
+
+replace "    "controller_objects_users""
+with "controller_objects_users"
+
+replace "    "controller_objects_execution_environments""
+with "controller_objects_execution_environments"
+
+replace "    "controller_objects_instance_groups""
+with "controller_objects_instance_groups"
+
+replace "    "controller_objects_credential_types""
+with "controller_objects_credential_types"
+
+replace "    "controller_objects_credentials_organizational""
+with "controller_objects_credentials_organizational"
+
+replace "    "controller_objects_credentials_personal""
+with "controller_objects_credentials_personal"
+
+replace "    "controller_objects_organizations""
+with "controller_objects_organizations"
+
+replace "    "controller_objects_notification_profiles""
+with "controller_objects_notification_profiles"
+
+replace "    "controller_objects_projects""
+with "controller_objects_projects"
+
+replace "    "controller_objects_inventories_smart""
+with "controller_objects_inventories_smart"
+
+replace "    "controller_objects_inventories_constructed""
+with "controller_objects_inventories_constructed"
+
+replace "    "controller_objects_inventories_dynamic""
+with "controller_objects_inventories_dynamic"
+
+replace "    "controller_objects_inventories_static""
+with "controller_objects_inventories_static"
+
+replace "    "controller_objects_templates""
+with "controller_objects_templates"
+
+replace "    "controller_objects_roles_instance_groups""
+with "controller_objects_roles_instance_groups"
+
+replace "    "controller_objects_roles_organization""
+with "controller_objects_roles_organization"
+
+replace "    "controller_objects_roles_credential""
+with "controller_objects_roles_credential"
+
+replace "    "controller_objects_roles_template""
+with "controller_objects_roles_template"
+
+replace "    "controller_objects_roles""
+with "controller_objects_roles"
+
+replace "    "gateway_objects_roles""
+with "gateway_objects_roles"
+
+replace "    "controller_objects_schedules""
+with "controller_objects_schedules"
+
+replace "    "controller_objects_workflows""
+with "controller_objects_workflows"
+
+replace "    "controller_objects_teams""
+with "controller_objects_teams"
+
+replace "        "{"
+with "  {"
+
+replace "}""
+with "}"
+
+////////////////////////////
+// Multiline objects
+
+replace-regex ", 'superuser'"
+with ",\n   'superuser'"
+
+replace-regex ", 'inputs'"
+with ",\n   'inputs'"
+
+replace-regex ", 'src_input_field_name'"
+with ",\n   'src_input_field_name'"
+
+replace-regex ", 'injectors'"
+with ",\n   'injectors'"
+
+replace-regex ", 'image'"
+with ",\n   'image'"
+
+replace-regex ", 'rules'"
+with ",\n   'rules'"
+
+replace-regex ", 'input'"
+with ",\n   'input'"
+
+replace-regex ", 'host_filter'"
+with ",\n   'host_filter'"
+
+replace-regex ", 'source_vars'"
+with ",\n   'source_vars'"
+
+replace-regex ", 'sources'"
+with ",\n   'sources'"
+
+replace-regex ", 'messages'"
+with ",\n   'messages'"
+
+replace-regex ", 'scm_update'"
+with ",\n   'scm_update'"
+
+replace-regex "}, 'hosts'"
+with "},\n   'hosts'"
+
+replace-regex "}, 'org'"
+with "},\n   'org'"
+
+replace-regex ", 'groups'"
+with ",\n   'groups'"
+
+replace-regex ", 'allow_simultaneous'"
+with ",\n   'allow_simultaneous'"
+
+replace-regex ", 'ask_execution_environment_on_launch'"
+with ",\n   'ask_execution_environment_on_launch'"
+
+replace-regex ", 'ask_inventory_on_launch'"
+with ",\n   'ask_inventory_on_launch'"
+
+replace-regex ", 'ask_labels_on_launch'"
+with ",\n   'ask_labels_on_launch'"
+
+replace-regex ", 'ask_skip_tags_on_launch'"
+with ",\n   'ask_skip_tags_on_launch'"
+
+replace-regex ", 'ask_variables_on_launch'"
+with ",\n   'ask_variables_on_launch'"
+
+replace-regex ", 'webhook_service'"
+with ",\n   'webhook_service'"
+
+replace-regex ", 'notifications_on_start'"
+with ",\n   'notifications_on_start'"
+
+replace-regex ", 'notification_config'"
+with ",\n   'notification_config'"
+
+replace-regex ", 'host_config_key'"
+with ",\n   'host_config_key'"
+
+replace-regex ", 'prevent_instance_group_fallback'"
+with ",\n   'prevent_instance_group_fallback'"
+
+replace-regex ", 'use_fact_cache'"
+with ",\n   'use_fact_cache'"
+
+replace-regex ", 'survey'"
+with ",\n   'survey'"
+
+replace-regex ", 'nodes'"
+with ",\n   'nodes'"
+
+replace-regex ", 'started'"
+with ",\n                'started'"
+
+replace-regex ", 'started'"
+with ",\n                'started'"
+
+replace-regex ", 'success'"
+with ",\n                'success'"
+
+replace-regex ", 'source_path'"
+with ",\n                'source_path'"
+
+replace-regex ", 'all_parents_must_converge'"
+with ",\n              'all_parents_must_converge'"
+
+replace-regex ", 'unified_job_template'"
+with ",\n              'unified_job_template'"
+
+replace-regex ", 'related'"
+with ",\n              'related'"
+
+replace-regex ", 'create_approval_template'"
+with ",\n              'create_approval_template'"
+
+replace-regex "}}', '"
+with "}}',\n                                '"
+
+replace-regex "}, {'id'"
+with "},\n                         {'id'"
+
+replace-regex "}, {'name'"
+with "},\n              {'name'"
+
+replace-regex "], 'hosts'"
+with "],\n               'hosts'"
+
+replace-regex "}, 'subgroups'"
+with "},\n               'subgroups'"
+
+replace-regex "}}, {'extra_data'"
+with "}},\n             {'extra_data'"
+
+
+////////////////////////////
+// Add new lines
+
+replace-regex "},\n  {'"
+with "},\n\n  {'"
+
+////////////////////////////
+// Final adjustments
+
+replace "  ""
+with "  '"
+
+replace-regex ""\n"
+with "'\n"
+
+replace-regex "",\n"
+with "',\n"
+
+replace "",\n"
+with "',\n"
+
+replace "": ""
+with "': '"
+
+replace "": "
+with "': "
+
+replace "\\\\"
+with "\"
+
+replace "\\"
+with "\"
+
+replace " \""
+with " ""
+
+replace "","
+with "',"
+
+replace "\',"
+with "","
+
+replace "\""
+with """
+
+replace " '{{ "
+with " !unsafe '{{ " 
+
+replace ": ' #{{ "
+with ": !unsafe ' #{{ "
+
+replace ": '#{{ "
+with ": !unsafe '#{{ "
+
+replace ": '"{{ "
+with ": !unsafe '"{{ "
+
+replace-regex "}\n\n"
+with ""
+
+replace-regex "}\n\n"
+with "} # type: ignore\n"
+
+replace-regex "    ]\n\n"
+with "] # type: ignore\n"
+
+replace-regex ""\n"
+with "'\n"
