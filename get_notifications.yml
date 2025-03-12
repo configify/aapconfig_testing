@@ -1,3 +1,0 @@
----
-- name: Run playbook to get notification profiles
-  import_playbook: configify.aapconfig.aap_audit_notification_profiles.yml

@@ -11,7 +11,7 @@
       tags: always
 
     - name: Include all vars
-      ansible.builtin.include_vars: all_objects_set_empty
+      ansible.builtin.include_vars: test_objects_empty_set
       tags: always
 
 #    - name: Include objects

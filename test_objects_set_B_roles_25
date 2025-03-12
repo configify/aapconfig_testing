@@ -1,0 +1,41 @@
+controller_objects_roles: [
+  {'team': 'Team B', 'role': 'JobTemplate Admin', 'object_type': 'jobtemplate', 'object_name': 'Template B'},
+  {'team': 'Team B', 'role': 'JobTemplate Execute', 'object_type': 'jobtemplate', 'object_name': 'Template B'},
+  {'team': 'Team B', 'role': 'Project Admin', 'object_type': 'project', 'object_name': 'Project B'},
+  {'team': 'Team B', 'role': 'Project Update', 'object_type': 'project', 'object_name': 'Project B'},
+  {'team': 'Team B', 'role': 'Project Use', 'object_type': 'project', 'object_name': 'Project B'},
+  {'team': 'Team B', 'role': 'Inventory Update', 'object_type': 'inventory', 'object_name': 'Inventory Constructed B'},
+  {'team': 'Team B', 'role': 'Inventory Use', 'object_type': 'inventory', 'object_name': 'Inventory Constructed B'},
+  {'team': 'Team B', 'role': 'InstanceGroup Use', 'object_type': 'instancegroup', 'object_name': 'Auto IG B'},
+  {'team': 'Team B', 'role': 'InstanceGroup Admin', 'object_type': 'instancegroup', 'object_name': 'Auto IG B'},
+
+  {'team': 'Team C', 'role': 'Organization NotificationTemplate Admin', 'object_type': 'organization', 'object_name': 'Org C'},
+  {'team': 'Team C', 'role': 'Organization JobTemplate Admin', 'object_type': 'organization', 'object_name': 'Org C'},
+  {'team': 'Team C', 'role': 'Organization ExecutionEnvironment Admin', 'object_type': 'organization', 'object_name': 'Org C'},
+  {'team': 'Team C', 'role': 'Organization Audit', 'object_type': 'organization', 'object_name': 'Org C'},
+  {'team': 'Team C', 'role': 'Organization Approval', 'object_type': 'organization', 'object_name': 'Org C'},
+
+  {'user': 'UserB', 'role': 'JobTemplate Admin', 'object_type': 'jobtemplate', 'object_name': 'Template B'},
+  {'user': 'UserB', 'role': 'JobTemplate Execute', 'object_type': 'jobtemplate', 'object_name': 'Template B'},
+  {'user': 'UserB', 'role': 'Project Admin', 'object_type': 'project', 'object_name': 'Project B'},
+  {'user': 'UserB', 'role': 'Project Update', 'object_type': 'project', 'object_name': 'Project B'},
+  {'user': 'UserB', 'role': 'Project Use', 'object_type': 'project', 'object_name': 'Project B'},
+  {'user': 'UserB', 'role': 'Inventory Use', 'object_type': 'inventory', 'object_name': 'Inventory Constructed B'},
+  {'user': 'UserB', 'role': 'InstanceGroup Use', 'object_type': 'instancegroup', 'object_name': 'Auto IG B'},
+  {'user': 'UserB', 'role': 'InstanceGroup Admin', 'object_type': 'instancegroup', 'object_name': 'Auto IG B'},
+
+  {'user': 'UserC', 'role': 'Organization Project Admin', 'object_type': 'organization', 'object_name': 'Org C'},
+  {'user': 'UserC', 'role': 'Organization Execute', 'object_type': 'organization', 'object_name': 'Org C'},
+
+  {'user': 'UserB', 'role': 'WorkflowJobTemplate Execute', 'object_type': 'workflowjobtemplate', 'object_name': 'Workflow B'},
+
+  {'user': 'UserC', 'role': 'Organization NotificationTemplate Admin', 'object_type': 'organization', 'object_name': 'Org C'},
+  {'user': 'UserC', 'role': 'Organization JobTemplate Admin', 'object_type': 'organization', 'object_name': 'Org C'},
+  {'user': 'UserC', 'role': 'Organization ExecutionEnvironment Admin', 'object_type': 'organization', 'object_name': 'Org C'},
+  {'user': 'UserC', 'role': 'Organization Audit', 'object_type': 'organization', 'object_name': 'Org C'}
+] # type: ignore
+
+gateway_objects_roles: [
+  {'user': 'UserC', 'role': 'Organization Admin', 'object_type': 'organization', 'object_name': 'Org C'},
+  {'user': 'UserB', 'role': 'Organization Member', 'object_type': 'organization', 'object_name': 'Org B'}
+] # type: ignore

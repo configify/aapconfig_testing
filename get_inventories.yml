@@ -1,3 +1,0 @@
----
-- name: Run playbook to get inventories
-  import_playbook: configify.aapconfig.aap_audit_inventories.yml

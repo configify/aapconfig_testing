@@ -11,7 +11,11 @@
       tags: always
 
     - name: Include all vars
-      ansible.builtin.include_vars: all_objects_set_A
+      ansible.builtin.include_vars: test_objects_set_A
+      tags: always
+
+    - name: Include role vars
+      ansible.builtin.include_vars: test_objects_set_A_roles_25
       tags: always
 
 #    - name: Include objects

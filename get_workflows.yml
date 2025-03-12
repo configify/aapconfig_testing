@@ -1,3 +1,0 @@
----
-- name: Run playbook to get workflows
-  import_playbook: configify.aapconfig.aap_audit_workflows.yml

@@ -1,3 +1,0 @@
----
-- name: Run playbook to get organizations
-  import_playbook: configify.aapconfig.aap_audit_organizations.yml

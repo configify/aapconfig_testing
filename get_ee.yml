@@ -1,3 +1,0 @@
----
-- name: Run playbook to get execution environments
-  import_playbook: configify.aapconfig.aap_audit_execution_environments.yml

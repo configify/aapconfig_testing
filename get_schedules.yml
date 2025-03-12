@@ -1,3 +1,0 @@
----
-- name: Run playbook to get published schedules
-  import_playbook: configify.aapconfig.aap_audit_schedules.yml
