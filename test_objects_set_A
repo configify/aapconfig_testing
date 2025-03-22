@@ -5,51 +5,175 @@ hub_objects_collections: [
 ] # type: ignore
 
 controller_settings_ldap: {
-  'AUTH_LDAP_1_START_TLS': true,
-  'AUTH_LDAP_BIND_DN': 'CN=josie,CN=users,DC=example,DC=com'
+        'AUTH_LDAP_1_BIND_DN': 'CN=user,CN=users,DC=examplec,DC=com',
+        'AUTH_LDAP_1_BIND_PASSWORD': '$encrypted$',
+        'AUTH_LDAP_1_DENY_GROUP': 'CN=user,OU=Users,DC=examplec,DC=com',
+        'AUTH_LDAP_1_GROUP_SEARCH': [
+            'DC=examplec,DC=com',
+            'SCOPE_SUBTREE',
+            '(objectClass=group)'
+        ],
+        'AUTH_LDAP_1_ORGANIZATION_MAP': {
+            'Org C': {
+                'users': [
+                    'CN=user,OU=Users,DC=examplec,DC=com'
+                ]
+            }
+        },
+        'AUTH_LDAP_1_REQUIRE_GROUP': 'CN=user,OU=Users,DC=examplec,DC=com',
+        'AUTH_LDAP_1_SERVER_URI': 'ldap://examplec',
+        'AUTH_LDAP_1_START_TLS': true,
+        'AUTH_LDAP_1_TEAM_MAP': {
+            'Team C': {
+                'organization': 'Org C',
+                'remove': true,
+                'users': [
+                    'CN=user,OU=Users,DC=examplea,DC=com'
+                ]
+            }
+        },
+        'AUTH_LDAP_1_USER_ATTR_MAP': {
+            'email': 'mail',
+            'first_name': 'givenName',
+            'last_name': 'sn'
+        },
+        'AUTH_LDAP_1_USER_DN_TEMPLATE': 'uid=%(user)s,OU=Users,DC=com',
+        'AUTH_LDAP_1_USER_FLAGS_BY_GROUP': {
+            'is_superuser': [
+                'CN=user,OU=Users,DC=example1,DC=com'
+            ]
+        },
+        'AUTH_LDAP_1_USER_SEARCH': [
+            'OU=Users,DC=examplec,DC=com',
+            'SCOPE_SUBTREE',
+            '(sAMAccountName=%(user)s)'
+        ],
+        'AUTH_LDAP_ORGANIZATION_MAP': {
+            'Org A': {
+                'admins': [
+                    'CN=orgaadm,OU=Users,DC=example,DC=com'
+                ],
+                'remove_admins': true,
+                'remove_users': true,
+                'users': [
+                    'CN=orga,OU=Users,DC=example,DC=com'
+                ]
+            },
+            'Org C': {
+                'admins': [],
+                'users': [
+                    'CN=orgc,OU=Users,DC=example,DC=com',
+                    'CN=orgc2,OU=Users,DC=example,DC=com'
+                ]
+            }
+        },
+        'AUTH_LDAP_SERVER_URI': 'ldap://examplea',
+        'AUTH_LDAP_TEAM_MAP': {
+            'Team A': {
+                'organization': 'Org A',
+                'remove': true,
+                'users': [
+                    'CN=teama,OU=Users,DC=example,DC=com'
+                ]
+            },
+            'Team C': {
+                'organization': 'Org C',
+                'users': [
+                    'CN=teama,OU=Users,DC=example,DC=com',
+                    'CN=teama2,OU=Users,DC=example,DC=com'
+                ]
+            }
+        }
 } # type: ignore
 
 controller_authentication: [
-  {
-    'configuration': {
-      'CONNECTION_OPTIONS': {},
-      'GROUP_TYPE': 'MemberDNGroupType',
-      'GROUP_TYPE_PARAMS': {
-        'member_attr': 'member',
-        'name_attr': 'cn'
-      },
-      'SERVER_URI': [
-        'ldap://examplea'
-      ],
-      'START_TLS': false,
-      'USER_ATTR_MAP': {
-        'email': 'a@example.com'
-      }
-    },
-    'enabled': true,
-    'name': 'Auth LDAP A',
-    'type': 'ansible_base.authentication.authenticator_plugins.ldap'
-  },
-  {
-    'configuration': {
-      'CONNECTION_OPTIONS': {},
-      'GROUP_TYPE': 'MemberDNGroupType',
-      'GROUP_TYPE_PARAMS': {
-        'member_attr': 'member',
-        'name_attr': 'cn'
-      },
-      'SERVER_URI': [
-        'ldap://examplec'
-      ],
-      'START_TLS': false,
-      'USER_ATTR_MAP': {
-        'email': 'c@example.com'
-      }
-    },
-    'enabled': true,
-    'name': 'Auth LDAP C',
-    'type': 'ansible_base.authentication.authenticator_plugins.ldap'
-  }
+        {
+            'configuration': {
+                'CONNECTION_OPTIONS': {},
+                'GROUP_TYPE': 'MemberDNGroupType',
+                'GROUP_TYPE_PARAMS': {
+                    'member_attr': 'member',
+                    'name_attr': 'cn'
+                },
+                'SERVER_URI': [
+                    'ldap://examplea'
+                ],
+                'START_TLS': false,
+                'USER_ATTR_MAP': {
+                    'email': 'mail',
+                    'first_name': 'givenName',
+                    'last_name': 'sn'
+                }
+            },
+            'enabled': true,
+            'name': 'Auth_LDAP',
+            'type': 'ansible_base.authentication.authenticator_plugins.ldap'
+        },
+        {
+            'configuration': {
+                'BIND_DN': 'CN=user,CN=users,DC=examplec,DC=com',
+                'BIND_PASSWORD': '$encrypted$',
+                'CONNECTION_OPTIONS': {},
+                'GROUP_SEARCH': [
+                    'DC=examplec,DC=com',
+                    'SCOPE_SUBTREE',
+                    '(objectClass=group)'
+                ],
+                'GROUP_TYPE': 'MemberDNGroupType',
+                'GROUP_TYPE_PARAMS': {
+                    'member_attr': 'member',
+                    'name_attr': 'cn'
+                },
+                'SERVER_URI': [
+                    'ldap://examplec'
+                ],
+                'START_TLS': true,
+                'USER_ATTR_MAP': {
+                    'email': 'mail',
+                    'first_name': 'givenName',
+                    'last_name': 'sn'
+                },
+                'USER_DN_TEMPLATE': 'uid=%(user)s,OU=Users,DC=com',
+                'USER_SEARCH': [
+                    'OU=Users,DC=examplec,DC=com',
+                    'SCOPE_SUBTREE',
+                    '(sAMAccountName=%(user)s)'
+                ]
+            },
+            'enabled': true,
+            'name': 'Auth_LDAP_1',
+            'type': 'ansible_base.authentication.authenticator_plugins.ldap'
+        }
+] # type: ignore
+
+controller_authenticator_maps: [
+  {'name': 'Auth_LDAP_team_Team A_map', 'authenticator': 'Auth_LDAP', 'order': 0,
+   'map_type': 'team', 'role': 'Team Member', 'organization': 'Org A', 'team': 'Team A', 'revoke': True,
+   'triggers': {'groups': {'has_or': ['CN=teama,OU=Users,DC=example,DC=com']}}},
+
+  {'name': 'Auth_LDAP_team_Team C_map', 'authenticator': 'Auth_LDAP', 'order': 0,
+   'map_type': 'team', 'role': 'Team Member', 'organization': 'Org C', 'team': 'Team C', 'revoke': False,
+   'triggers': {'groups': {'has_or': ['CN=teama,OU=Users,DC=example,DC=com', 'CN=teama2,OU=Users,DC=example,DC=com']}}},
+
+  {'name': 'Auth_LDAP_org_Org A_user_map', 'authenticator': 'Auth_LDAP', 'order': 0,
+   'map_type': 'organization', 'role': 'Organization Member', 'organization': 'Org A', 'team': '', 'revoke': True,
+   'triggers': {'groups': {'has_or': ['CN=orga,OU=Users,DC=example,DC=com']}}},
+
+  {'name': 'Auth_LDAP_org_Org A_admin_map', 'authenticator': 'Auth_LDAP', 'order': 0,
+   'map_type': 'organization', 'role': 'Organization Admin', 'organization': 'Org A', 'team': '', 'revoke': True,
+   'triggers': {'groups': {'has_or': ['CN=orgaadm,OU=Users,DC=example,DC=com']}}},
+
+  {'name': 'Auth_LDAP_org_Org C_user_map', 'authenticator': 'Auth_LDAP', 'order': 0,
+   'map_type': 'organization', 'role': 'Organization Member', 'organization': 'Org C', 'team': '', 'revoke': False,
+   'triggers': {'groups': {'has_or': ['CN=orgc,OU=Users,DC=example,DC=com', 'CN=orgc2,OU=Users,DC=example,DC=com']}}},
+
+  {'name': 'Auth_LDAP_1_team_Team C_map', 'authenticator': 'Auth_LDAP_1', 'order': 0,
+   'map_type': 'team', 'role': 'Team Member', 'organization': 'Org C', 'team': 'Team C', 'revoke': True,
+   'triggers': {'groups': {'has_or': ['CN=user,OU=Users,DC=examplea,DC=com']}}},
+
+  {'name': 'Auth_LDAP_1_org_Org C_user_map', 'authenticator': 'Auth_LDAP_1', 'order': 0,
+   'map_type': 'organization', 'role': 'Organization Member', 'organization': 'Org C', 'team': '', 'revoke': False,
+   'triggers': {'groups': {'has_or': ['CN=user,OU=Users,DC=examplec,DC=com']}}}
 ] # type: ignore
 
 controller_settings_jobs: {
@@ -67,22 +191,22 @@ controller_objects_users: [
   {'username': 'UserC', 'first_name': 'ccc', 'last_name': '', 'email': '',
    'superuser': False, 'auditor': False, 'pass': '$encrypted$'},
 
-  {'username': 'UserC_Auditor', 'first_name': 'cccaaa', 'last_name': '', 'email': '',
+  {'username': 'UserA_Auditor', 'first_name': 'cccaaa', 'last_name': '', 'email': '',
    'superuser': False, 'auditor': True, 'pass': '$encrypted$'}
 ] # type: ignore
 
 controller_objects_execution_environments: [
   {'name': 'Execution Environment A', 'descr': '',
-  'image': '{{ hub_host }}/ee-minimal-rhel8:latest', 'pull': 'missing'},
+   'image': '{{ hub_host }}/ee-minimal-rhel8:latest', 'pull': 'missing'},
 
   {'name': 'Automation Hub Minimal execution environment', 'descr': '',
-  'image': '{{ hub_host }}/ee-minimal-rhel8:latest', 'pull': 'missing'},
+   'image': '{{ hub_host }}/ee-minimal-rhel8:latest', 'pull': 'missing'},
 
-  {'name': 'Automation Hub Default execution environment', 'descr': '', 
-  'image': '{{ hub_host }}/ee-supported-rhel8:latest', 'pull': 'missing'},
+  {'name': 'Automation Hub Default execution environment', 'descr': '',
+   'image': '{{ hub_host }}/ee-supported-rhel8:latest', 'pull': 'missing'},
 
   {'name': 'Control Plane Execution Environment', 'descr': '',
-  'image': '{{ hub_host }}/ee-supported-rhel8:latest', 'pull': 'missing'}
+   'image': '{{ hub_host }}/ee-supported-rhel8:latest', 'pull': 'missing'}
 ] # type: ignore
 
 controller_objects_instance_groups: [
@@ -187,16 +311,20 @@ controller_objects_teams: [
 
 controller_objects_projects: [
   {'name': 'Project A', 'type': 'git', 'branch': '', 'scm_clean': False, 'scm_delete': False,
-   'scm_update': False, 'org': 'Org A', 'url': 'https://github.com/configify/hi.git'},
+   'scm_update': False, 'org': 'Org A', 'url': 'https://github.com/configify/hi.git',
+   'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': []},
 
   {'name': 'Project C', 'type': 'git', 'branch': '', 'scm_clean': False, 'scm_delete': False,
-   'scm_update': False, 'org': 'Org C', 'url': 'https://github.com/configify/hi.git'},
+   'scm_update': False, 'org': 'Org C', 'url': 'https://github.com/configify/hi.git',
+   'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': []},
 
   {'name': 'Project with Creds A', 'type': 'git', 'branch': '', 'scm_clean': False, 'scm_delete': False,
-   'scm_update': False, 'org': 'Org A', 'cred': 'Credential GitHub A', 'url': 'https://github.com/configify/hi.git'},
+   'scm_update': False, 'org': 'Org A', 'cred': 'Credential GitHub A', 'url': 'https://github.com/configify/hi.git',
+   'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': []},
 
   {'name': 'Project with Creds C', 'type': 'git', 'branch': '', 'scm_clean': False, 'scm_delete': False,
-   'scm_update': False, 'org': 'Org C', 'cred': 'Credential GitHub C', 'url': 'https://github.com/configify/hi.git'}
+   'scm_update': False, 'org': 'Org C', 'cred': 'Credential GitHub C', 'url': 'https://github.com/configify/hi.git',
+   'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': []}
 ] # type: ignore
 
 controller_objects_inventories_smart: [
@@ -264,7 +392,7 @@ controller_objects_templates: [
    'prevent_instance_group_fallback': False, 'scm_branch': '', 'skip_tags': '', 'start_at_task': '', 'survey_enabled': False, 'timeout': 0,
    'use_fact_cache': False, 'verbosity': 0,
    'survey': {}, 'extra_vars': {},
-   'webhook_service': '', 'webhook_credential': None, 'creds': ['Credential Machine A'],
+   'webhook_service': '', 'webhook_credential': '', 'creds': ['Credential Machine A'],
    'notifications_on_start': ['Notification Email A', 'Notification Slack A'], 'notifications_on_success': [], 'notifications_on_failure': ['Notification Slack A']},
 
   {'name': 'Template C', 'description': '', 'playbook': 'hi.yml', 'execution_environment': 'Execution Environment A', 'project': 'Project with Creds C',
@@ -278,7 +406,7 @@ controller_objects_templates: [
    'prevent_instance_group_fallback': False, 'scm_branch': '', 'skip_tags': '', 'start_at_task': '', 'survey_enabled': False, 'timeout': 0,
    'use_fact_cache': False, 'verbosity': 0,
    'survey': {}, 'extra_vars': {},
-   'webhook_service': '', 'webhook_credential': None, 'creds': ['Credential Machine C'],
+   'webhook_service': '', 'webhook_credential': '', 'creds': ['Credential Machine C'],
    'notifications_on_start': ['Notification Hook C'], 'notifications_on_success': ['Notification Hook C'], 'notifications_on_failure': ['Notification Hook C']}
 ] # type: ignore
 

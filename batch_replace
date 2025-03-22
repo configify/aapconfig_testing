@@ -97,6 +97,9 @@ with "controller_objects_workflows"
 replace "    "controller_objects_teams""
 with "controller_objects_teams"
 
+replace "    "controller_authenticator_maps""
+with "controller_authenticator_maps"
+
 replace "        "{"
 with "  {"
 
@@ -126,6 +129,12 @@ with ",\n   'rules'"
 
 replace-regex ", 'input'"
 with ",\n   'input'"
+
+replace-regex ", 'triggers'"
+with ",\n   'triggers'"
+
+replace-regex ", 'map_type'"
+with ",\n   'map_type'"
 
 replace-regex ", 'host_filter'"
 with ",\n   'host_filter'"

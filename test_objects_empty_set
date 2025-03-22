@@ -2,6 +2,7 @@ hub_objects_collections: [{'namespace': 'community', 'name': 'general', 'filenam
 
 controller_settings_ldap: {} # type: ignore
 controller_authentication: [] # type: ignore
+controller_authenticator_maps: [] # type: ignore
 
 controller_settings_jobs: {} # type: ignore
 
