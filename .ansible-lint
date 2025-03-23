@@ -4,3 +4,6 @@ exclude_paths:
   - configify.aapconfig.*
   - ansible_collections/ansible/*
   - ansible_collections/infra
+  - ansible_collections/awx
+
+offline: true

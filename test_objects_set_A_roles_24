@@ -46,7 +46,7 @@ controller_objects_roles: [
   {'user': 'UserA', 'role': 'WorkflowJobTemplate Execute', 'object_type': 'workflowjobtemplate', 'object_name': 'Workflow A'},
   {'user': 'UserA', 'role': 'Credential Read', 'object_type': 'credential', 'object_name': 'Credential GitHub A'},
   {'user': 'UserA', 'role': 'Credential Use', 'object_type': 'credential', 'object_name': 'Credential GitHub A'},
-  {'user': 'UserA', 'role': 'Credential Admin', 'object_type': 'credential', 'object_name': 'Credential GitHub A'},
+  {'user': 'UserA', 'role': 'Credential Admin', 'object_type': 'credential', 'object_name': 'Credential Personal A'},
   {'user': 'UserA', 'role': 'Inventory Admin', 'object_type': 'inventory', 'object_name': 'Inventory Constructed A'},
   {'user': 'UserA', 'role': 'Inventory Update', 'object_type': 'inventory', 'object_name': 'Inventory Constructed A'},
   {'user': 'UserA', 'role': 'Inventory Ad Hoc', 'object_type': 'inventory', 'object_name': 'Inventory Constructed A'},

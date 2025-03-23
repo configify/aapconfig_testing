@@ -4,6 +4,20 @@ hub_objects_collections: [
   {'namespace': 'infra', 'name': 'ah_configuration', 'filename': 'infra-ah_configuration-2.1.0.tar.gz'}
 ] # type: ignore
 
+controller_settings_authentication: {
+        'AUTHENTICATION_BACKENDS': [
+            'awx.sso.backends.LDAPBackend',
+            'awx.sso.backends.LDAPBackend1',
+            'awx.sso.backends.TACACSPlusBackend',
+            'awx.main.backends.AWXModelBackend'
+        ]
+} # type: ignore
+
+controller_settings_jobs: {
+        'AWX_ISOLATION_SHOW_PATHS': [],
+        'GALAXY_IGNORE_CERTS': true
+} # type: ignore
+
 controller_settings_ldap: {
         'AUTH_LDAP_1_BIND_DN': 'CN=user,CN=users,DC=examplec,DC=com',
         'AUTH_LDAP_1_BIND_PASSWORD': '$encrypted$',
@@ -176,11 +190,6 @@ controller_authenticator_maps: [
    'triggers': {'groups': {'has_or': ['CN=user,OU=Users,DC=examplec,DC=com']}}}
 ] # type: ignore
 
-controller_settings_jobs: {
-  'AWX_ISOLATION_SHOW_PATHS': [],
-  'GALAXY_IGNORE_CERTS': true
-} # type: ignore
-
 controller_objects_users: [
   {'username': 'UserA', 'first_name': 'aaa', 'last_name': '', 'email': 'usera@example.com',
    'superuser': False, 'auditor': False, 'pass': '$encrypted$'},
@@ -233,7 +242,7 @@ controller_objects_credential_types: [
                                 'configifyaduser': !unsafe '{{ usernameC }}'}}}
 ] # type: ignore
 
-controller_objects_credentials_organizational: [
+controller_objects_credentials: [
   {'name': 'Credential A', 'org': 'Default', 'descr': '', 'type': 'Ansible Galaxy/Automation Hub API Token',
    'inputs': {'url': 'https://examplea', 'token': 'HIDDEN', 'auth_url': ''},
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
@@ -264,15 +273,13 @@ controller_objects_credentials_organizational: [
 
   {'name': 'Credential Machine C', 'org': 'Org C', 'descr': '', 'type': 'Machine',
    'inputs': {'password': 'HIDDEN', 'username': 'ccc', 'become_method': '', 'become_username': ''},
-   'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''}
-] # type: ignore
+   'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
 
-controller_objects_credentials_personal: [
-  {'name': 'Credential Personal A', 'user': 'admin', 'descr': '', 'type': 'Machine',
+  {'name': 'Credential Personal A', 'org': '', 'descr': '', 'type': 'Machine',
    'inputs': {'password': 'HIDDEN', 'username': 'aaa', 'become_method': '', 'become_username': ''},
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
 
-  {'name': 'Credential Personal C', 'user': 'admin', 'descr': '', 'type': 'Machine',
+  {'name': 'Credential Personal C', 'org': '', 'descr': '', 'type': 'Machine',
    'inputs': {'password': 'HIDDEN', 'username': 'ccc', 'become_method': '', 'become_username': ''},
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''}
 ] # type: ignore
@@ -311,11 +318,11 @@ controller_objects_teams: [
 
 controller_objects_projects: [
   {'name': 'Project A', 'type': 'git', 'branch': '', 'scm_clean': False, 'scm_delete': False,
-   'scm_update': False, 'org': 'Org A', 'url': 'https://github.com/configify/hi.git',
+   'scm_update': False, 'org': 'Org A', 'cred': '', 'url': 'https://github.com/configify/hi.git',
    'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': []},
 
   {'name': 'Project C', 'type': 'git', 'branch': '', 'scm_clean': False, 'scm_delete': False,
-   'scm_update': False, 'org': 'Org C', 'url': 'https://github.com/configify/hi.git',
+   'scm_update': False, 'org': 'Org C', 'cred': '', 'url': 'https://github.com/configify/hi.git',
    'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': []},
 
   {'name': 'Project with Creds A', 'type': 'git', 'branch': '', 'scm_clean': False, 'scm_delete': False,

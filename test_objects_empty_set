@@ -22,8 +22,7 @@ controller_objects_instance_groups: [] # type: ignore
 
 controller_objects_credential_types: [] # type: ignore
 
-controller_objects_credentials_organizational: [] # type: ignore
-controller_objects_credentials_personal: [] # type: ignore
+controller_objects_credentials: [] # type: ignore
 
 controller_objects_organizations: [] # type: ignore
 

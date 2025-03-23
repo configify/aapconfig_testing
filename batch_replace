@@ -40,11 +40,8 @@ with "controller_objects_instance_groups"
 replace "    "controller_objects_credential_types""
 with "controller_objects_credential_types"
 
-replace "    "controller_objects_credentials_organizational""
-with "controller_objects_credentials_organizational"
-
-replace "    "controller_objects_credentials_personal""
-with "controller_objects_credentials_personal"
+replace "    "controller_objects_credentials""
+with "controller_objects_credentials"
 
 replace "    "controller_objects_organizations""
 with "controller_objects_organizations"
@@ -292,6 +289,9 @@ with """
 
 replace " '{{ "
 with " !unsafe '{{ " 
+
+replace " 'https://{{ "
+with " !unsafe 'https://{{ " 
 
 replace ": ' #{{ "
 with ": !unsafe ' #{{ "

@@ -13,6 +13,13 @@ controller_settings_authentication: {
   ]
 } # type: ignore
 
+controller_settings_jobs: {
+        'AWX_ISOLATION_SHOW_PATHS': [
+            '/tmp'
+        ],
+        'PROJECT_UPDATE_VVV': true
+    } # type: ignore
+
 controller_settings_ldap: {
         'AUTH_LDAP_1_BIND_DN': 'CN=user,CN=users,DC=examplec,DC=com',
         'AUTH_LDAP_1_BIND_PASSWORD': '$encrypted$',
@@ -185,12 +192,6 @@ controller_authenticator_maps: [
    'triggers': {'groups': {'has_or': ['CN=user,OU=Users,DC=examplec,DC=com']}}}
 ] # type: ignore
 
-
-controller_settings_jobs: {
-  'AWX_ISOLATION_SHOW_PATHS': ['/tmp'],
-  'PROJECT_UPDATE_VVV': true
-} # type: ignore
-
 controller_objects_users: [
   {'username': 'UserB', 'first_name': 'bbb', 'last_name': '', 'email': '',
    'superuser': False, 'auditor': False, 'pass': '$encrypted$'},
@@ -244,7 +245,7 @@ controller_objects_credential_types: [
                                 'configifyaduser': !unsafe '{{ usernameC }}'}}}
 ] # type: ignore
 
-controller_objects_credentials_organizational: [
+controller_objects_credentials: [
   {'name': 'Credential B', 'org': 'Default', 'descr': '', 'type': 'Ansible Galaxy/Automation Hub API Token',
    'inputs': {'url': 'https://exampleb', 'token': 'HIDDEN', 'auth_url': ''},
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
@@ -287,15 +288,13 @@ controller_objects_credentials_organizational: [
 
   {'name': 'Credential with "quotes"', 'org': 'Org B', 'descr': '', 'type': 'Machine',
    'inputs': {'password': 'HIDDEN', 'username': 'domain\user'},
-   'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''}
-] # type: ignore
+   'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
 
-controller_objects_credentials_personal: [
-  {'name': 'Credential Personal B', 'user': 'admin', 'descr': '', 'type': 'Machine',
+  {'name': 'Credential Personal B', 'org': '', 'descr': '', 'type': 'Machine',
    'inputs': {'password': 'HIDDEN', 'username': 'bbb', 'become_method': '', 'become_username': ''},
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
 
-  {'name': 'Credential Personal C', 'user': 'admin', 'descr': '', 'type': 'Machine',
+  {'name': 'Credential Personal C', 'org': '', 'descr': '', 'type': 'Machine',
    'inputs': {'password': 'HIDDEN', 'username': 'ccc_new', 'become_method': '', 'become_username': ''},
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''}
 ] # type: ignore
@@ -329,7 +328,7 @@ controller_objects_teams: [
 
 controller_objects_projects: [
   {'name': 'Project C', 'type': 'git', 'branch': '', 'scm_clean': False, 'scm_delete': False,
-   'scm_update': False, 'org': 'Org C', 'url': 'https://github.com/configify/hi.git',
+   'scm_update': False, 'org': 'Org C', 'cred': '', 'url': 'https://github.com/configify/hi.git',
    'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': []},
 
   {'name': 'Project with Creds C', 'type': 'git', 'branch': '', 'scm_clean': False, 'scm_delete': False,
@@ -337,7 +336,7 @@ controller_objects_projects: [
    'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': []},
 
   {'name': 'Project B', 'type': 'git', 'branch': '', 'scm_clean': False, 'scm_delete': False,
-   'scm_update': False, 'org': 'Org B', 'url': 'https://github.com/configify/hi.git',
+   'scm_update': False, 'org': 'Org B', 'cred': '', 'url': 'https://github.com/configify/hi.git',
    'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': []},
 
   {'name': 'Project with Creds B', 'type': 'git', 'branch': '', 'scm_clean': False, 'scm_delete': False,
