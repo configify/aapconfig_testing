@@ -145,8 +145,8 @@ with ",\n   'sources'"
 replace-regex ", 'messages'"
 with ",\n   'messages'"
 
-replace-regex ", 'scm_update'"
-with ",\n   'scm_update'"
+replace-regex ", 'allow_override'"
+with ",\n   'allow_override'"
 
 replace-regex "}, 'hosts'"
 with "},\n   'hosts'"
@@ -207,6 +207,19 @@ with ",\n                'started'"
 
 replace-regex ", 'success'"
 with ",\n                'success'"
+
+replace-regex ", 'workflow_approval'"
+with ",\n                'workflow_approval'"
+
+
+replace-regex ", 'running'"
+with ",\n                                      'running'"
+
+replace-regex ", 'approved'"
+with ",\n                                      'approved'"
+
+replace-regex ", 'timed_out'"
+with ",\n                                      'timed_out'"
 
 replace-regex ", 'source_path'"
 with ",\n                'source_path'"
@@ -313,3 +326,9 @@ with "] # type: ignore\n"
 
 replace-regex ""\n"
 with "'\n"
+
+replace "'{"body\'"
+with "'{"body""
+
+replace "'{"body"
+with "!unsafe '{"body"

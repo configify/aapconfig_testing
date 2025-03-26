@@ -214,10 +214,7 @@ controller_objects_execution_environments: [
    'image': '{{ hub_host }}/ee-supported-rhel8:latest', 'pull': 'missing'},
 
   {'name': 'Automation Hub Minimal execution environment', 'descr': '',
-   'image': '{{ hub_host }}/ee-minimal-rhel8:latest', 'pull': 'missing'},
-
-  {'name': 'Control Plane Execution Environment', 'descr': '',
-   'image': '{{ hub_host }}/ee-supported-rhel8:latest', 'pull': 'missing'}
+   'image': '{{ hub_host }}/ee-minimal-rhel8:latest', 'pull': 'missing'}
 ] # type: ignore
 
 controller_objects_instance_groups: [
@@ -327,20 +324,20 @@ controller_objects_teams: [
 ] # type: ignore
 
 controller_objects_projects: [
-  {'name': 'Project C', 'type': 'git', 'branch': '', 'scm_clean': False, 'scm_delete': False,
-   'scm_update': False, 'org': 'Org C', 'cred': '', 'url': 'https://github.com/configify/hi.git',
+  {'name': 'Project C', 'type': 'git', 'branch': '', 'clean_on_update': False, 'delete_on_update': False, 'update_on_launch': False,
+   'allow_override': False, 'org': 'Org C', 'cred': '', 'url': 'https://github.com/configify/hi.git', 'ee': '',
    'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': []},
 
-  {'name': 'Project with Creds C', 'type': 'git', 'branch': '', 'scm_clean': False, 'scm_delete': False,
-   'scm_update': False, 'org': 'Org C', 'cred': 'Credential GitHub B', 'url': 'https://github.com/configify/hi.git',
+  {'name': 'Project with Creds C', 'type': 'git', 'branch': '', 'clean_on_update': True, 'delete_on_update': True, 'update_on_launch': True,
+   'allow_override': True, 'org': 'Org C', 'cred': 'Credential GitHub B', 'url': 'https://github.com/configify/hi.git', 'ee': '',
    'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': []},
 
-  {'name': 'Project B', 'type': 'git', 'branch': '', 'scm_clean': False, 'scm_delete': False,
-   'scm_update': False, 'org': 'Org B', 'cred': '', 'url': 'https://github.com/configify/hi.git',
+  {'name': 'Project B', 'type': 'git', 'branch': '', 'clean_on_update': False, 'delete_on_update': False, 'update_on_launch': False,
+   'allow_override': False, 'org': 'Org B', 'cred': '', 'url': 'https://github.com/configify/hi.git', 'ee': '',
    'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': []},
 
-  {'name': 'Project with Creds B', 'type': 'git', 'branch': '', 'scm_clean': False, 'scm_delete': False,
-   'scm_update': False, 'org': 'Org B', 'cred': 'Credential GitHub B', 'url': 'https://github.com/configify/hi.git',
+  {'name': 'Project with Creds B', 'type': 'git', 'branch': '', 'clean_on_update': False, 'delete_on_update': False, 'update_on_launch': False,
+   'allow_override': False, 'org': 'Org B', 'cred': 'Credential GitHub B', 'url': 'https://github.com/configify/hi.git', 'ee': 'Execution Environment B',
    'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': []}
 ] # type: ignore
 
@@ -422,7 +419,10 @@ controller_objects_templates: [
    'host_config_key': '', 'inventory': 'Inventory Static C', 'job_slice_count': 1, 'job_tags': '', 'job_type': 'run', 'limit': '',
    'prevent_instance_group_fallback': False, 'scm_branch': '', 'skip_tags': '', 'start_at_task': '', 'survey_enabled': False, 'timeout': 0,
    'use_fact_cache': False, 'verbosity': 0,
-   'survey': {}, 'extra_vars': {},
+   'survey': {'name': '', 'spec': [{'max': 1024, 'min': 0, 'type': 'text', 'choices': '', 'default': '', 'required': True, 'variable': 'template_c_variable_1', 'new_question': True, 'question_name': 'template_c_variable_1', 'question_description': ''},
+                                   {'max': 1024, 'min': 0, 'type': 'text', 'choices': '', 'default': '', 'required': True, 'variable': 'template_c_variable_2', 'new_question': True, 'question_name': 'template_c_variable_2', 'question_description': ''}],
+              'description': ''},
+   'extra_vars': {},
    'webhook_service': 'github', 'webhook_credential': 'GHPAT', 'creds': ['Credential Machine C'],
    'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': []}
 ] # type: ignore

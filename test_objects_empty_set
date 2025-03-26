@@ -9,9 +9,7 @@ controller_settings_jobs: {} # type: ignore
 controller_objects_users: [] # type: ignore
 controller_objects_teams: [] # type: ignore
 
-controller_objects_execution_environments: [
-  {'name': 'Control Plane Execution Environment', 'descr': '', 'image': '{{ hub_host }}/ee-supported-rhel8:latest', 'pull': 'missing'}
-] # type: ignore
+controller_objects_execution_environments: [] # type: ignore
 
 controller_objects_notification_profiles: [] # type: ignore
 
