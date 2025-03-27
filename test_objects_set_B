@@ -386,10 +386,7 @@ controller_objects_inventories_static: [
   {'name': 'Inventory Static C', 'description': 'Static inventory C', 'org': 'Org C',
    'host_filter': '', 'prevent_fallback': False, 'variables': {},
    'hosts': [{'name': 'Host C2', 'description': '', 'variables': {}}],
-   'groups': [{'name': 'Group C1', 'description': '', 'variables': {},
-               'subgroups': ['Group C2'],
-               'hosts': []},
-              {'name': 'Group C2', 'description': '', 'variables': {},
+   'groups': [ {'name': 'Group C2', 'description': '', 'variables': {},
                'subgroups': [],
                'hosts': [{'name': 'Host C', 'description': '', 'variables': {}}]}]}
 ] # type: ignore
