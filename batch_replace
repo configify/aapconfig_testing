@@ -332,3 +332,21 @@ with "'{"body""
 
 replace "'{"body"
 with "!unsafe '{"body"
+
+//replace "'max': None, "
+//with ""
+
+//replace "'min': None, "
+//with ""
+
+//replace "'choices': '"
+//with "'choices': ['"
+
+//replace "', 'default'"
+//with "'], 'default'"
+
+//replace "'choices': [''], "
+//with ""
+
+//replace "\n"
+//with "', '"
