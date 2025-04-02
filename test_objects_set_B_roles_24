@@ -41,5 +41,8 @@ controller_objects_roles: [
   {'user': 'UserC', 'role': 'Organization Execution Environment Admin', 'object_type': 'organization', 'object_name': 'Org C'},
   {'user': 'UserC', 'role': 'Organization Auditor', 'object_type': 'organization', 'object_name': 'Org C'},
   {'user': 'UserB', 'role': 'Organization Member', 'object_type': 'organization', 'object_name': 'Org B'},
-  {'user': 'UserC', 'role': 'Organization Admin', 'object_type': 'organization', 'object_name': 'Org C'}
+  {'user': 'UserC', 'role': 'Organization Admin', 'object_type': 'organization', 'object_name': 'Org C'},
+
+  {'user': 'userde', 'role': 'Organization Admin', 'object_type': 'organization', 'object_name': 'Org D'},
+  {'user': 'userde', 'role': 'Organization Admin', 'object_type': 'organization', 'object_name': 'Org E'}
 ] # type: ignore

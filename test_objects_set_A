@@ -201,7 +201,10 @@ controller_objects_users: [
    'superuser': False, 'auditor': False, 'pass': '$encrypted$'},
 
   {'username': 'UserA_Auditor', 'first_name': 'cccaaa', 'last_name': '', 'email': '',
-   'superuser': False, 'auditor': True, 'pass': '$encrypted$'}
+   'superuser': False, 'auditor': True, 'pass': '$encrypted$'},
+
+  {'username': 'userde', 'first_name': '', 'last_name': '', 'email': '',
+   'superuser': False, 'auditor': False, 'pass': '$encrypted$'}
 ] # type: ignore
 
 controller_objects_execution_environments: [
@@ -272,6 +275,14 @@ controller_objects_credentials: [
    'inputs': {'password': 'HIDDEN', 'username': 'ccc', 'become_method': '', 'become_username': ''},
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
 
+  {'name': 'Credential GitHub D1', 'org': 'Org D', 'descr': '', 'type': 'Source Control',
+   'inputs': {'password': '', 'username': 'kk-at-redhat'},
+   'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
+
+  {'name': 'Credential GitHub E1', 'org': 'Org E', 'descr': '', 'type': 'Source Control',
+   'inputs': {'password': '', 'username': 'kk-at-redhat'},
+   'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
+
   {'name': 'Credential Personal A', 'org': '', 'descr': '', 'type': 'Machine',
    'inputs': {'password': 'HIDDEN', 'username': 'aaa', 'become_method': '', 'become_username': ''},
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
@@ -283,7 +294,9 @@ controller_objects_credentials: [
 
 controller_objects_organizations: [
   {'name': 'Org A', 'descr': '', 'creds': ['Credential A']},
-  {'name': 'Org C', 'descr': '', 'creds': ['Credential C']}
+  {'name': 'Org C', 'descr': '', 'creds': ['Credential C']},
+  {'name': 'Org D', 'descr': '', 'creds': []},
+  {'name': 'Org E', 'descr': '', 'creds': []}
 ] # type: ignore
 
 controller_objects_notification_profiles: [
@@ -305,12 +318,24 @@ controller_objects_notification_profiles: [
   {'name': 'Notification Slack A', 'descr': '', 'notification_type': 'slack',
    'notification_config': {'token': '$encrypted$', 'channels': ['aaa'], 'hex_color': ''},
    'org': 'Org A',
+   'messages': {}},
+
+  {'name': 'Notification Slack D1', 'descr': '', 'notification_type': 'slack',
+   'notification_config': {'token': '$encrypted$', 'channels': ['aaa'], 'hex_color': ''},
+   'org': 'Org D',
+   'messages': {}},
+
+  {'name': 'Notification Slack E1', 'descr': '', 'notification_type': 'slack',
+   'notification_config': {'token': '$encrypted$', 'channels': ['aaa'], 'hex_color': ''},
+   'org': 'Org E',
    'messages': {}}
 ] # type: ignore
 
 controller_objects_teams: [
   {'name': 'Team A', 'descr': '', 'org': 'Org A'},
-  {'name': 'Team C', 'descr': '', 'org': 'Org C'}
+  {'name': 'Team C', 'descr': '', 'org': 'Org C'},
+  {'name': 'Team D1', 'descr': '', 'org': 'Org D'},
+  {'name': 'Team E1', 'descr': '', 'org': 'Org E'}
 ] # type: ignore
 
 controller_objects_projects: [
@@ -326,6 +351,14 @@ controller_objects_projects: [
    'allow_override': False, 'org': 'Org A', 'cred': '', 'url': 'https://github.com/configify/hi.git', 'ee': '',
    'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': []},
 
+  {'name': 'Project D1', 'type': 'git', 'branch': '', 'clean_on_update': False, 'delete_on_update': False, 'update_on_launch': False,
+   'allow_override': False, 'org': 'Org D', 'cred': 'Credential GitHub D1', 'url': 'https://github.com/configify/hi.git', 'ee': '',
+   'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': []},
+
+  {'name': 'Project E1', 'type': 'git', 'branch': '', 'clean_on_update': False, 'delete_on_update': False, 'update_on_launch': False,
+   'allow_override': False, 'org': 'Org E', 'cred': 'Credential GitHub E1', 'url': 'https://github.com/configify/hi.git', 'ee': '',
+   'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': []},
+
   {'name': 'Project with Creds A', 'type': 'git', 'branch': '', 'clean_on_update': False, 'delete_on_update': False, 'update_on_launch': False,
    'allow_override': False, 'org': 'Org A', 'cred': 'Credential GitHub A', 'url': 'https://github.com/configify/hi.git', 'ee': 'Execution Environment A',
    'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': []}
@@ -333,7 +366,13 @@ controller_objects_projects: [
 
 controller_objects_inventories_smart: [
   {'name': 'Smart A', 'description': '', 'org': 'Org A', 'variables': {},
-   'host_filter': 'name__icontains=B'}
+   'host_filter': 'name__icontains=B'},
+
+  {'name': 'Smart D1', 'description': '', 'org': 'Org D', 'variables': {},
+   'host_filter': 'name__icontains=D'},
+
+  {'name': 'Smart E1', 'description': '', 'org': 'Org E', 'variables': {},
+   'host_filter': 'name__icontains=E'}
 ] # type: ignore
 
 controller_objects_inventories_constructed: [
@@ -344,6 +383,16 @@ controller_objects_inventories_constructed: [
 
   {'name': 'Inventory Constructed C', 'description': '', 'org': 'Org C',
    'input': ['Inventory Static C'],
+   'host_filter': '',
+   'source_vars': {'plugin': 'constructed', 'strict': True}, 'limit': '*1', 'source': ''},
+
+  {'name': 'Inventory Constructed D1', 'description': '', 'org': 'Org D',
+   'input': ['Inventory Static D1'],
+   'host_filter': '',
+   'source_vars': {'plugin': 'constructed', 'strict': True}, 'limit': '*1', 'source': ''},
+
+  {'name': 'Inventory Constructed E1', 'description': '', 'org': 'Org E',
+   'input': ['Inventory Static E1'],
    'host_filter': '',
    'source_vars': {'plugin': 'constructed', 'strict': True}, 'limit': '*1', 'source': ''}
 ] # type: ignore
@@ -359,6 +408,18 @@ controller_objects_inventories_dynamic: [
    'host_filter': '', 'prevent_fallback': False, 'variables': {},
    'sources': [{'name': 'Inventory Source C', 'description': '', 'enabled_value': '', 'enabled_var': '',
                 'host_filter': '', 'overwrite': False, 'overwrite_vars': False, 'project': 'Project with Creds C', 'source': 'scm',
+                'source_path': '', 'extra_vars': {}, 'timeout': 0, 'update_cache_timeout': 0, 'update_on_launch': False, 'verbosity': 1}]},
+
+  {'name': 'Inventory Dynamic D1', 'description': '', 'org': 'Org D',
+   'host_filter': '', 'prevent_fallback': False, 'variables': {},
+   'sources': [{'name': 'Inventory Source D1', 'description': '', 'enabled_value': '', 'enabled_var': '',
+                'host_filter': '', 'overwrite': False, 'overwrite_vars': False, 'project': 'Project D1', 'source': 'scm',
+                'source_path': '', 'extra_vars': {}, 'timeout': 0, 'update_cache_timeout': 0, 'update_on_launch': False, 'verbosity': 1}]},
+
+  {'name': 'Inventory Dynamic E1', 'description': '', 'org': 'Org E',
+   'host_filter': '', 'prevent_fallback': False, 'variables': {},
+   'sources': [{'name': 'Inventory Source E1', 'description': '', 'enabled_value': '', 'enabled_var': '',
+                'host_filter': '', 'overwrite': False, 'overwrite_vars': False, 'project': 'Project E1', 'source': 'scm',
                 'source_path': '', 'extra_vars': {}, 'timeout': 0, 'update_cache_timeout': 0, 'update_on_launch': False, 'verbosity': 1}]}
 ] # type: ignore
 
@@ -381,7 +442,27 @@ controller_objects_inventories_static: [
                'hosts': []},
               {'name': 'Group C2', 'description': '', 'variables': {},
                'subgroups': [],
-               'hosts': [{'name': 'Host C1', 'description': '', 'variables': {}}]}]}
+               'hosts': [{'name': 'Host C1', 'description': '', 'variables': {}}]}]},
+
+  {'name': 'Inventory Static D1', 'description': '', 'org': 'Org D',
+   'host_filter': '', 'prevent_fallback': False, 'variables': {},
+   'hosts': [{'name': 'Host D11', 'description': '', 'variables': {}}],
+   'groups': [{'name': 'Group D11', 'description': '', 'variables': {},
+               'subgroups': ['Group D12'],
+               'hosts': []},
+              {'name': 'Group D12', 'description': '', 'variables': {},
+               'subgroups': [],
+               'hosts': [{'name': 'Host D12', 'description': '', 'variables': {}}]}]},
+
+  {'name': 'Inventory Static E1', 'description': '', 'org': 'Org E',
+   'host_filter': '', 'prevent_fallback': False, 'variables': {},
+   'hosts': [{'name': 'Host E11', 'description': '', 'variables': {}}],
+   'groups': [{'name': 'Group E11', 'description': '', 'variables': {},
+               'subgroups': ['Group E12'],
+               'hosts': []},
+              {'name': 'Group E12', 'description': '', 'variables': {},
+               'subgroups': [],
+               'hosts': [{'name': 'Host E12', 'description': '', 'variables': {}}]}]}
 ] # type: ignore
 
 controller_objects_templates: [
@@ -413,11 +494,45 @@ controller_objects_templates: [
               'description': ''},
    'extra_vars': {},
    'webhook_service': '', 'webhook_credential': '', 'creds': ['Credential Machine C'],
-   'notifications_on_start': ['Notification Hook C'], 'notifications_on_success': ['Notification Hook C'], 'notifications_on_failure': ['Notification Hook C']}
+   'notifications_on_start': ['Notification Hook C'], 'notifications_on_success': ['Notification Hook C'], 'notifications_on_failure': ['Notification Hook C']},
+
+  {'name': 'Template D1', 'description': '', 'playbook': 'hi.yml', 'execution_environment': '', 'project': 'Project D1',
+   'allow_simultaneous': False, 'ask_credential_on_launch': False, 'ask_diff_mode_on_launch': False,
+   'ask_execution_environment_on_launch': False, 'ask_forks_on_launch': False, 'ask_instance_groups_on_launch': False,
+   'ask_inventory_on_launch': False, 'ask_job_slice_count_on_launch': False, 'ask_job_type_on_launch': False,
+   'ask_labels_on_launch': False, 'ask_limit_on_launch': False, 'ask_scm_branch_on_launch': False,
+   'ask_skip_tags_on_launch': False, 'ask_tags_on_launch': False, 'ask_timeout_on_launch': False,
+   'ask_variables_on_launch': False, 'ask_verbosity_on_launch': False, 'become_enabled': False, 'diff_mode': False, 'force_handlers': False, 'forks': 0,
+   'host_config_key': '', 'inventory': 'Inventory Dynamic D1', 'job_slice_count': 1, 'job_tags': '', 'job_type': 'run', 'limit': '',
+   'prevent_instance_group_fallback': False, 'scm_branch': '', 'skip_tags': '', 'start_at_task': '', 'survey_enabled': False, 'timeout': 0,
+   'use_fact_cache': False, 'verbosity': 0,
+   'survey': {}, 'extra_vars': {},
+   'webhook_service': '', 'webhook_credential': '', 'creds': [],
+   'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': ['Notification Slack D1']},
+
+  {'name': 'Template E1', 'description': '', 'playbook': 'hi.yml', 'execution_environment': '', 'project': 'Project E1',
+   'allow_simultaneous': False, 'ask_credential_on_launch': False, 'ask_diff_mode_on_launch': False,
+   'ask_execution_environment_on_launch': False, 'ask_forks_on_launch': False, 'ask_instance_groups_on_launch': False,
+   'ask_inventory_on_launch': False, 'ask_job_slice_count_on_launch': False, 'ask_job_type_on_launch': False,
+   'ask_labels_on_launch': False, 'ask_limit_on_launch': False, 'ask_scm_branch_on_launch': False,
+   'ask_skip_tags_on_launch': False, 'ask_tags_on_launch': False, 'ask_timeout_on_launch': False,
+   'ask_variables_on_launch': False, 'ask_verbosity_on_launch': False, 'become_enabled': False, 'diff_mode': False, 'force_handlers': False, 'forks': 0,
+   'host_config_key': '', 'inventory': 'Inventory Dynamic E1', 'job_slice_count': 1, 'job_tags': '', 'job_type': 'run', 'limit': '',
+   'prevent_instance_group_fallback': False, 'scm_branch': '', 'skip_tags': '', 'start_at_task': '', 'survey_enabled': False, 'timeout': 0,
+   'use_fact_cache': False, 'verbosity': 0,
+   'survey': {}, 'extra_vars': {},
+   'webhook_service': '', 'webhook_credential': '', 'creds': [],
+   'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': ['Notification Slack E1']}
 ] # type: ignore
 
 controller_objects_schedules: [
   {'name': 'Schedule A', 'descr': '', 'template': 'Template A',
+   'rules': 'DTSTART;TZID=America/Toronto:20250205T200000 RRULE:INTERVAL=1;FREQ=DAILY'},
+
+  {'name': 'Schedule D1', 'descr': '', 'template': 'Template D1',
+   'rules': 'DTSTART;TZID=America/Toronto:20250205T200000 RRULE:INTERVAL=1;FREQ=DAILY'},
+
+  {'name': 'Schedule E1', 'descr': '', 'template': 'Template E1',
    'rules': 'DTSTART;TZID=America/Toronto:20250205T200000 RRULE:INTERVAL=1;FREQ=DAILY'},
 
   {'name': 'Cleanup Activity Schedule', 'descr': 'Automatically Generated Schedule', 'template': 'Cleanup Activity Stream',
@@ -482,5 +597,27 @@ controller_objects_workflows: [
              {'extra_data': {}, 'scm_branch': '', 'job_type': '', 'job_tags': '', 'skip_tags': '', 'limit': '', 'diff_mode': '', 'verbosity': '', 'forks': '', 'job_slice_count': '', 'timeout': '',
               'all_parents_must_converge': False, 'identifier': '2b797fc6-791d-4ee4-a1e6-7502f3aa18f0',
               'unified_job_template': {'organization': {'name': 'Org A', 'type': 'organization'}, 'name': 'Workflow A', 'type': 'workflow_job_template'},
-              'related': {'credentials': [], 'success_nodes': [], 'failure_nodes': [], 'always_nodes': []}}]}
+              'related': {'credentials': [], 'success_nodes': [], 'failure_nodes': [], 'always_nodes': []}}]},
+
+  {'name': 'Workflow D1', 'descr': '', 'org': 'Org D', 'inventory': 'Inventory Static D1',
+   'allow_simultaneous': False,
+   'ask_inventory_on_launch': False,
+   'ask_labels_on_launch': False, 'ask_limit_on_launch': False, 'ask_scm_branch_on_launch': False,
+   'ask_skip_tags_on_launch': False, 'ask_tags_on_launch': False,
+   'ask_variables_on_launch': False, 'extra_vars': {}, 'job_tags': '', 'limit': '', 'scm_branch': '', 'skip_tags': '', 'survey_enabled': False, 'webhook_credential': '',
+   'survey': {},
+   'webhook_service': '',
+   'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': [], 'notifications_on_approval': [],
+   'nodes': []},
+
+  {'name': 'Workflow E1', 'descr': '', 'org': 'Org E', 'inventory': 'Inventory Static E1',
+   'allow_simultaneous': False,
+   'ask_inventory_on_launch': False,
+   'ask_labels_on_launch': False, 'ask_limit_on_launch': False, 'ask_scm_branch_on_launch': False,
+   'ask_skip_tags_on_launch': False, 'ask_tags_on_launch': False,
+   'ask_variables_on_launch': False, 'extra_vars': {}, 'job_tags': '', 'limit': '', 'scm_branch': '', 'skip_tags': '', 'survey_enabled': False, 'webhook_credential': '',
+   'survey': {},
+   'webhook_service': '',
+   'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': [], 'notifications_on_approval': [],
+   'nodes': []}
 ] # type: ignore

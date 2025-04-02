@@ -34,5 +34,8 @@ controller_objects_roles: [
 gateway_objects_roles: [
   {'user': 'UserC', 'role': 'Organization Admin', 'object_type': 'organization', 'object_name': 'Org C'},
   {'user': 'UserB', 'role': 'Organization Member', 'object_type': 'organization', 'object_name': 'Org B'},
-  {'user': 'UserB_Auditor', 'role': 'Platform Auditor', 'object_type': 'platform', 'object_name': 'Platform'}
+  {'user': 'UserB_Auditor', 'role': 'Platform Auditor', 'object_type': 'platform', 'object_name': 'Platform'},
+
+  {'user': 'userde', 'role': 'Organization Admin', 'object_type': 'organization', 'object_name': 'Org D'},
+  {'user': 'userde', 'role': 'Organization Admin', 'object_type': 'organization', 'object_name': 'Org E'}
 ] # type: ignore
