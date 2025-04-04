@@ -204,18 +204,21 @@ controller_objects_users: [
    'superuser': False, 'auditor': True, 'pass': '$encrypted$'},
 
   {'username': 'userde', 'first_name': '', 'last_name': '', 'email': '',
-   'superuser': False, 'auditor': False, 'pass': '$encrypted$'}
+   'superuser': False, 'auditor': False, 'pass': '$encrypted$'},
+
+  {'username': 'hubsync', 'first_name': '', 'last_name': '', 'email': '',
+   'superuser': False, 'auditor': False, 'pass': '{{ lookup("ansible.builtin.env", "AH_PASSWORD") }}'}
 ] # type: ignore
 
 controller_objects_execution_environments: [
   {'name': 'Execution Environment A', 'descr': '',
-   'image': '{{ hub_host }}/ee-minimal-rhel8:latest', 'pull': 'missing'},
+   'image': '{{ lookup("ansible.builtin.env", "AH_HOST") }}/ee-minimal-rhel8:latest', 'pull': 'missing'},
 
   {'name': 'Automation Hub Minimal execution environment', 'descr': '',
-   'image': '{{ hub_host }}/ee-minimal-rhel8:latest', 'pull': 'missing'},
+   'image': '{{ lookup("ansible.builtin.env", "AH_HOST") }}/ee-minimal-rhel8:latest', 'pull': 'missing'},
 
   {'name': 'Automation Hub Default execution environment', 'descr': '',
-   'image': '{{ hub_host }}/ee-supported-rhel8:latest', 'pull': 'missing'}
+   'image': '{{ lookup("ansible.builtin.env", "AH_HOST") }}/ee-supported-rhel8:latest', 'pull': 'missing'}
 ] # type: ignore
 
 controller_objects_instance_groups: [
@@ -223,7 +226,7 @@ controller_objects_instance_groups: [
 
   {'name': 'Auto IG C', 'minimum': 1, 'percentage': 100, 'instances': []},
 
-  {'name': 'Static IG A', 'minimum': 1, 'percentage': 0, 'instances': ["{{ controller_host }}"]},
+  {'name': 'Static IG A', 'minimum': 1, 'percentage': 0, 'instances': ['{{ lookup("ansible.builtin.env", "CONTROLLER_HOST") }}']},
 
   {'name': 'Static IG C', 'minimum': 1, 'percentage': 0, 'instances': []}
 ] # type: ignore
@@ -239,7 +242,29 @@ controller_objects_credential_types: [
    'inputs': {'fields': [{'id': 'usernameC', 'type': 'string', 'label': 'Username'},
                          {'id': 'passwordC', 'type': 'string', 'label': 'Password'}]},
    'injectors': {'extra_vars': {'configifyadpass': !unsafe '{{ passwordC }}',
-                                'configifyaduser': !unsafe '{{ usernameC }}'}}}
+                                'configifyaduser': !unsafe '{{ usernameC }}'}}},
+
+  {'name': 'Credential Type Z (hub)', 'descr': '',
+   'inputs': {'fields': [{'id': 'hub_host', 'type': 'string', 'label': 'Hub host'},
+                         {'id': 'hub_user', 'type': 'string', 'label': 'Hub user'},
+                         {'id': 'hub_pass', 'type': 'string', 'label': 'Hub password', 'secret': true},
+                         {'id': 'hub_ssl_verify', 'type': 'boolean', 'label': 'Verify SSL'}]},
+   'injectors': {'env': {'AH_HOST': !unsafe '{{ hub_host }}',
+                         'AH_USERNAME': !unsafe '{{ hub_user }}',
+                         'AH_PASSWORD': !unsafe '{{ hub_pass }}',
+                         'AH_VERIFY_SSL': !unsafe '{{ hub_ssl_verify }}'}}},
+
+  {'name': 'Credential Type Z (gw)', 'descr': '',
+   'inputs': {'fields': [{'id': 'gw_host', 'type': 'string', 'label': 'Gateway host'},
+                         {'id': 'gw_pat', 'type': 'string', 'label': 'Gateway token', 'secret': true},
+                         {'id': 'gw_ssl_verify', 'type': 'boolean', 'label': 'Verify SSL'}]},
+   'injectors': {'env': {'GATEWAY_HOSTNAME': !unsafe '{{ gw_host }}',
+                         'GATEWAY_API_TOKEN': !unsafe '{{ gw_pat }}',
+                         'GATEWAY_VERIFY_SSL': !unsafe '{{ gw_ssl_verify }}'}}},
+
+  {'name': 'Credential Type Z (api endpoint)', 'descr': '',
+   'inputs': {'fields': [{'id': 'api_endpoint', 'type': 'string', 'label': 'API endpoint'}]},
+   'injectors': {'env': {'CONTROLLER_OPTIONAL_API_URLPATTERN_PREFIX': !unsafe '{{ api_endpoint }}'}}}
 ] # type: ignore
 
 controller_objects_credentials: [
@@ -260,11 +285,11 @@ controller_objects_credentials: [
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
 
   {'name': 'Credential GitHub A', 'org': 'Org A', 'descr': '', 'type': 'Source Control',
-   'inputs': {'password': '', 'username': 'kk-at-redhat'},
+   'inputs': {'password': '{{ github_pat }}', 'username': 'kk-at-redhat'},
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
 
   {'name': 'Credential GitHub C', 'org': 'Org C', 'descr': '', 'type': 'Source Control',
-   'inputs': {'password': '', 'username': 'kk-at-redhat'},
+   'inputs': {'password': '{{ github_pat }}', 'username': 'kk-at-redhat'},
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
 
   {'name': 'Credential Machine A', 'org': 'Org A', 'descr': '', 'type': 'Machine',
@@ -276,11 +301,11 @@ controller_objects_credentials: [
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
 
   {'name': 'Credential GitHub D1', 'org': 'Org D', 'descr': '', 'type': 'Source Control',
-   'inputs': {'password': '', 'username': 'kk-at-redhat'},
+   'inputs': {'password': '{{ github_pat }}', 'username': 'kk-at-redhat'},
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
 
   {'name': 'Credential GitHub E1', 'org': 'Org E', 'descr': '', 'type': 'Source Control',
-   'inputs': {'password': '', 'username': 'kk-at-redhat'},
+   'inputs': {'password': '{{ github_pat }}', 'username': 'kk-at-redhat'},
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
 
   {'name': 'Credential Personal A', 'org': '', 'descr': '', 'type': 'Machine',
@@ -289,6 +314,38 @@ controller_objects_credentials: [
 
   {'name': 'Credential Personal C', 'org': '', 'descr': '', 'type': 'Machine',
    'inputs': {'password': 'HIDDEN', 'username': 'ccc', 'become_method': '', 'become_username': ''},
+   'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
+
+  {'name': 'Credential Z (controller)', 'org': 'Org Z', 'descr': '', 'type': 'Red Hat Ansible Automation Platform',
+   'inputs': {'host': '{{ lookup("ansible.builtin.env", "CONTROLLER_HOST") }}',
+              'username': '',
+              'verify_ssl': '{{ lookup("ansible.builtin.env", "CONTROLLER_VERIFY_SSL") | bool }}',
+              'oauth_token': '{{ lookup("ansible.builtin.env", "CONTROLLER_OAUTH_TOKEN") }}'},
+   'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
+
+  {'name': 'Credential Z (hub)', 'org': 'Org Z', 'descr': '', 'type': 'Credential Type Z (hub)',
+   'inputs': {'hub_host': '{{ lookup("ansible.builtin.env", "AH_HOST") }}',
+              'hub_user': '{{ lookup("ansible.builtin.env", "AH_USERNAME") }}',
+              'hub_pass': '{{ lookup("ansible.builtin.env", "AH_PASSWORD") }}',
+              'hub_ssl_verify': '{{ lookup("ansible.builtin.env", "AH_VERIFY_SSL") | bool }}'},
+   'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
+
+  {'name': 'Credential Z (gw)', 'org': 'Org Z', 'descr': '', 'type': 'Credential Type Z (gw)',
+   'inputs': {'gw_host': '{{ lookup("ansible.builtin.env", "GATEWAY_HOSTNAME") }}',
+              'gw_pat': '{{ lookup("ansible.builtin.env", "GATEWAY_API_TOKEN") }}',
+              'gw_ssl_verify': '{{ lookup("ansible.builtin.env", "GATEWAY_VERIFY_SSL") | bool }}'},
+   'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
+
+  {'name': 'Credential Z (hub sync)', 'org': 'Org Z', 'descr': '', 'type': 'Ansible Galaxy/Automation Hub API Token',
+   'inputs': {'url': 'https://{{ lookup("ansible.builtin.env", "AH_HOST") }}/api/galaxy/content/rh-certified/', 'token': '{{ hub_pat[aap_version] }}', 'auth_url': ''},
+   'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
+
+  {'name': 'Credential Z (vault)', 'org': 'Org Z', 'descr': '', 'type': 'Vault',
+   'inputs': {'vault_id': '', 'vault_password': '{{ lookup("ansible.builtin.env", "AH_PASSWORD") }}'},
+   'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
+
+  {'name': 'Credential Z (api endpoint)', 'org': 'Org Z', 'descr': '', 'type': 'Credential Type Z (api endpoint)',
+   'inputs': {'api_endpoint': '{{ api_endpoint[aap_version] }}'},
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''}
 ] # type: ignore
 
@@ -296,7 +353,8 @@ controller_objects_organizations: [
   {'name': 'Org A', 'descr': '', 'creds': ['Credential A']},
   {'name': 'Org C', 'descr': '', 'creds': ['Credential C']},
   {'name': 'Org D', 'descr': '', 'creds': []},
-  {'name': 'Org E', 'descr': '', 'creds': []}
+  {'name': 'Org E', 'descr': '', 'creds': []},
+  {'name': 'Org Z', 'descr': '', 'creds': ['Ansible Galaxy', 'Credential Z (hub sync)']}
 ] # type: ignore
 
 controller_objects_notification_profiles: [
@@ -361,6 +419,10 @@ controller_objects_projects: [
 
   {'name': 'Project with Creds A', 'type': 'git', 'branch': '', 'clean_on_update': False, 'delete_on_update': False, 'update_on_launch': False,
    'allow_override': False, 'org': 'Org A', 'cred': 'Credential GitHub A', 'url': 'https://github.com/configify/hi.git', 'ee': 'Execution Environment A',
+   'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': []},
+
+  {'name': 'Project Z', 'type': 'git', 'branch': '', 'clean_on_update': False, 'delete_on_update': False, 'update_on_launch': False,
+   'allow_override': False, 'org': 'Org Z', 'cred': '', 'url': 'https://github.com/configify/aapconfig_testing.git', 'ee': '',
    'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': []}
 ] # type: ignore
 
@@ -462,7 +524,12 @@ controller_objects_inventories_static: [
                'hosts': []},
               {'name': 'Group E12', 'description': '', 'variables': {},
                'subgroups': [],
-               'hosts': [{'name': 'Host E12', 'description': '', 'variables': {}}]}]}
+               'hosts': [{'name': 'Host E12', 'description': '', 'variables': {}}]}]},
+
+  {'name': 'Inventory Static Z', 'description': '', 'org': 'Org Z',
+   'host_filter': '', 'prevent_fallback': False, 'variables': {},
+   'hosts': [],
+   'groups': []}
 ] # type: ignore
 
 controller_objects_templates: [
@@ -522,7 +589,21 @@ controller_objects_templates: [
    'use_fact_cache': False, 'verbosity': 0,
    'survey': {}, 'extra_vars': {},
    'webhook_service': '', 'webhook_credential': '', 'creds': [],
-   'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': ['Notification Slack E1']}
+   'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': ['Notification Slack E1']},
+
+  {'name': 'Template Z', 'description': '', 'playbook': 'configure_aap.yml', 'execution_environment': '', 'project': 'Project Z',
+   'allow_simultaneous': False, 'ask_credential_on_launch': False, 'ask_diff_mode_on_launch': False,
+   'ask_execution_environment_on_launch': False, 'ask_forks_on_launch': False, 'ask_instance_groups_on_launch': False,
+   'ask_inventory_on_launch': False, 'ask_job_slice_count_on_launch': False, 'ask_job_type_on_launch': False,
+   'ask_labels_on_launch': False, 'ask_limit_on_launch': False, 'ask_scm_branch_on_launch': False,
+   'ask_skip_tags_on_launch': False, 'ask_tags_on_launch': False, 'ask_timeout_on_launch': False,
+   'ask_variables_on_launch': False, 'ask_verbosity_on_launch': False, 'become_enabled': False, 'diff_mode': False, 'force_handlers': False, 'forks': 0,
+   'host_config_key': '', 'inventory': 'Inventory Static Z', 'job_slice_count': 1, 'job_tags': '', 'job_type': 'run', 'limit': '',
+   'prevent_instance_group_fallback': False, 'scm_branch': '', 'skip_tags': '', 'start_at_task': '', 'survey_enabled': False, 'timeout': 0,
+   'use_fact_cache': False, 'verbosity': 0,
+   'survey': {}, 'extra_vars': {'aap_version': '{{ aap_version }}', 'object_set': 'A', 'delete_objects': true, 'wait_project_sync': true},
+   'webhook_service': '', 'webhook_credential': '', 'creds': ['Credential Z (controller)', 'Credential Z (hub)', 'Credential Z (gw)', 'Credential Z (vault)', 'Credential Z (api endpoint)'],
+   'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': []}
 ] # type: ignore
 
 controller_objects_schedules: [

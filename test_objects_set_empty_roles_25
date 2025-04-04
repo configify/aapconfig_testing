@@ -1,0 +1,2 @@
+controller_objects_roles: [] # type: ignore
+gateway_objects_roles: [] # type: ignore

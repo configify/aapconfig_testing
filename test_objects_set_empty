@@ -6,15 +6,16 @@ controller_authenticator_maps: [] # type: ignore
 
 controller_settings_jobs: {} # type: ignore
 
-controller_objects_users: [] # type: ignore
+controller_objects_users: [
+  {'username': 'hubsync', 'first_name': '', 'last_name': '', 'email': '',
+   'superuser': False, 'auditor': False, 'pass': '{{ lookup("ansible.builtin.env", "AH_PASSWORD") }}'}
+] # type: ignore
+
 controller_objects_teams: [] # type: ignore
 
 controller_objects_execution_environments: [] # type: ignore
 
 controller_objects_notification_profiles: [] # type: ignore
-
-controller_objects_roles: [] # type: ignore
-gateway_objects_roles: [] # type: ignore
 
 controller_objects_instance_groups: [] # type: ignore
 
