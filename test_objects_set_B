@@ -1,7 +1,5 @@
 hub_objects_collections: [
-  {'namespace': 'community', 'name': 'general', 'filename': 'community-general-8.2.0.tar.gz'},
-
-  {'namespace': 'ansible', 'name': 'controller', 'filename': 'ansible-controller-4.5.0.tar.gz'}
+  {'namespace': 'community', 'name': 'general', 'filename': 'community-general-8.2.0.tar.gz'}
 ] # type: ignore
 
 controller_settings_authentication: {
@@ -214,23 +212,23 @@ controller_objects_users: [
 
 controller_objects_execution_environments: [
   {'name': 'Execution Environment B', 'descr': '',
-   'image': '{{ lookup("ansible.builtin.env", "AH_HOST") }}/ee-minimal-rhel8:latest', 'pull': 'missing'},
+   'image': '{{ hostname_hub[aap_version] }}/ee-minimal-rhel8:latest', 'pull': 'missing'},
 
   {'name': 'Automation Hub Default execution environment', 'descr': '',
-   'image': '{{ lookup("ansible.builtin.env", "AH_HOST") }}/ee-supported-rhel8:latest', 'pull': 'missing'},
+   'image': '{{ hostname_hub[aap_version] }}/ee-supported-rhel8:latest', 'pull': 'missing'},
 
   {'name': 'Automation Hub Minimal execution environment', 'descr': '',
-   'image': '{{ lookup("ansible.builtin.env", "AH_HOST") }}/ee-minimal-rhel8:latest', 'pull': 'missing'}
+   'image': '{{ hostname_hub[aap_version] }}/ee-minimal-rhel8:latest', 'pull': 'missing'}
 ] # type: ignore
 
 controller_objects_instance_groups: [
-  {'name': 'Static IG C', 'minimum': 1, 'percentage': 0, 'instances': ['{{ lookup("ansible.builtin.env", "CONTROLLER_HOST") }}']},
+  {'name': 'Static IG C', 'minimum': 1, 'percentage': 0, 'instances': ['{{ hostname_controller[aap_version] }}']},
 
   {'name': 'Auto IG B', 'minimum': 1, 'percentage': 100, 'instances': []},
 
   {'name': 'Auto IG C', 'minimum': 1, 'percentage': 60, 'instances': []},
 
-  {'name': 'Static IG B', 'minimum': 1, 'percentage': 0, 'instances': ['{{ lookup("ansible.builtin.env", "CONTROLLER_HOST") }}']}
+  {'name': 'Static IG B', 'minimum': 1, 'percentage': 0, 'instances': ['{{ hostname_controller[aap_version] }}']}
 ] # type: ignore
 
 controller_objects_credential_types: [
@@ -265,8 +263,8 @@ controller_objects_credential_types: [
                          'GATEWAY_VERIFY_SSL': !unsafe '{{ gw_ssl_verify }}'}}},
 
   {'name': 'Credential Type Z (api endpoint)', 'descr': '',
-   'inputs': {'fields': [{'id': 'api_endpoint', 'type': 'string', 'label': 'API endpoint'}]},
-   'injectors': {'env': {'CONTROLLER_OPTIONAL_API_URLPATTERN_PREFIX': !unsafe '{{ api_endpoint }}'}}}
+   'inputs': {'fields': [{'id': 'api_prefix', 'type': 'string', 'label': 'API prefix'}]},
+   'injectors': {'env': {'CONTROLLER_OPTIONAL_API_URLPATTERN_PREFIX': !unsafe '{{ api_prefix }}'}}}
 ] # type: ignore
 
 controller_objects_credentials: [
@@ -351,7 +349,7 @@ controller_objects_credentials: [
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
 
   {'name': 'Credential Z (hub sync)', 'org': 'Org Z', 'descr': '', 'type': 'Ansible Galaxy/Automation Hub API Token',
-   'inputs': {'url': 'https://{{ lookup("ansible.builtin.env", "AH_HOST") }}/api/galaxy/content/rh-certified/', 'token': '{{ hub_pat[aap_version] }}', 'auth_url': ''},
+   'inputs': {'url': 'https://{{ hub_endpoint[aap_version] }}/api/galaxy/content/rh-certified/', 'token': '{{ hub_pat[aap_version] }}', 'auth_url': ''},
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
 
   {'name': 'Credential Z (vault)', 'org': 'Org Z', 'descr': '', 'type': 'Vault',
@@ -359,7 +357,7 @@ controller_objects_credentials: [
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
 
   {'name': 'Credential Z (api endpoint)', 'org': 'Org Z', 'descr': '', 'type': 'Credential Type Z (api endpoint)',
-   'inputs': {'api_endpoint': '{{ api_endpoint[aap_version] }}'},
+   'inputs': {'api_prefix': '{{ api_prefix[aap_version] }}'},
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''}
 ] # type: ignore
 
@@ -430,7 +428,7 @@ controller_objects_projects: [
    'allow_override': False, 'org': 'Org B', 'cred': 'Credential GitHub B', 'url': 'https://github.com/configify/hi.git', 'ee': 'Execution Environment B',
    'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': []},
 
-  {'name': 'Project Z', 'type': 'git', 'branch': '', 'clean_on_update': False, 'delete_on_update': False, 'update_on_launch': False,
+  {'name': 'Project Z', 'type': 'git', 'branch': 'aap_testing', 'clean_on_update': False, 'delete_on_update': False, 'update_on_launch': False,
    'allow_override': False, 'org': 'Org Z', 'cred': '', 'url': 'https://github.com/configify/aapconfig_testing.git', 'ee': '',
    'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': []}
 ] # type: ignore
