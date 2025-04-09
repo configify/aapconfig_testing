@@ -338,8 +338,12 @@ controller_objects_credentials: [
               'gw_ssl_verify': '{{ lookup("ansible.builtin.env", "GATEWAY_VERIFY_SSL") | bool }}'},
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
 
-  {'name': 'Credential Z (hub sync)', 'org': 'Org Z', 'descr': '', 'type': 'Ansible Galaxy/Automation Hub API Token',
+  {'name': 'Credential Z (hub sync certified)', 'org': 'Org Z', 'descr': '', 'type': 'Ansible Galaxy/Automation Hub API Token',
    'inputs': {'url': 'https://{{ hub_endpoint[aap_version] }}/api/galaxy/content/rh-certified/', 'token': '{{ hub_pat[aap_version] }}', 'auth_url': ''},
+   'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
+
+  {'name': 'Credential Z (hub sync published)', 'org': 'Org Z', 'descr': '', 'type': 'Ansible Galaxy/Automation Hub API Token',
+   'inputs': {'url': 'https://{{ hub_endpoint[aap_version] }}/api/galaxy/', 'token': '{{ hub_pat[aap_version] }}', 'auth_url': ''},
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
 
   {'name': 'Credential Z (vault)', 'org': 'Org Z', 'descr': '', 'type': 'Vault',
@@ -356,7 +360,7 @@ controller_objects_organizations: [
   {'name': 'Org C', 'descr': '', 'creds': ['Credential C']},
   {'name': 'Org D', 'descr': '', 'creds': []},
   {'name': 'Org E', 'descr': '', 'creds': []},
-  {'name': 'Org Z', 'descr': '', 'creds': ['Credential Z (hub sync)', 'Ansible Galaxy']}
+  {'name': 'Org Z', 'descr': '', 'creds': ['Credential Z (hub sync published)', 'Credential Z (hub sync certified)', 'Ansible Galaxy']}
 ] # type: ignore
 
 controller_objects_notification_profiles: [
