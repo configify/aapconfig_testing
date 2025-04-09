@@ -1,4 +1,5 @@
 hub_objects_collections: [] # type: ignore
+hub_objects_remotes: [] # type: ignore
 
 controller_settings_ldap: {} # type: ignore
 controller_authentication: [] # type: ignore
