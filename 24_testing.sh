@@ -6,10 +6,12 @@ set -e
 
 echo -e "\033[1;92m
 ######################################################################################################################################
-####### Copy tarballs
+####### Copy tarballs and build collection
 ######################################################################################################################################\033[0m"
 sudo mkdir -p /runner/project
 sudo cp -r collections_tarballs /runner/project
+sudo chmod a+w /runner/project/collections_tarballs
+ansible -m infra.ah_configuration.ah_build -a "path=ansible_collections/configify/aapconfig/ force=true output_path=/runner/project/collections_tarballs/" localhost
 
 
 echo -e "\033[1;92m
@@ -241,6 +243,13 @@ echo -e "\033[1;92m
 ####### GET: Set B (settings, auth, users,roles)/25
 ######################################################################################################################################\033[0m"
 ansible-playbook get_objects.yml --tags export_settings,export_authenticators,export_users,export_roles -e format_for_25=true
+
+
+echo -e "\033[1;92m
+######################################################################################################################################
+####### Cleanup
+######################################################################################################################################\033[0m"
+rm -rf /runner/project/collections_tarballs/configify*
 
 
 echo -e "\033[1;92m

@@ -1,7 +1,9 @@
 hub_objects_collections: [
   {'namespace': 'community', 'name': 'general', 'filename': 'community-general-8.2.0.tar.gz'},
 
-  {'namespace': 'infra', 'name': 'ah_configuration', 'filename': 'infra-ah_configuration-2.1.0.tar.gz'}
+  {'namespace': 'infra', 'name': 'ah_configuration', 'filename': 'infra-ah_configuration-2.1.0.tar.gz'},
+
+  {'namespace': 'configify', 'name': 'aapconfig', 'filename': 'configify-aapconfig-{{ version }}.tar.gz'}
 ] # type: ignore
 
 controller_settings_authentication: {
@@ -354,7 +356,7 @@ controller_objects_organizations: [
   {'name': 'Org C', 'descr': '', 'creds': ['Credential C']},
   {'name': 'Org D', 'descr': '', 'creds': []},
   {'name': 'Org E', 'descr': '', 'creds': []},
-  {'name': 'Org Z', 'descr': '', 'creds': ['Ansible Galaxy', 'Credential Z (hub sync)']}
+  {'name': 'Org Z', 'descr': '', 'creds': ['Credential Z (hub sync)', 'Ansible Galaxy']}
 ] # type: ignore
 
 controller_objects_notification_profiles: [
@@ -601,7 +603,7 @@ controller_objects_templates: [
    'host_config_key': '', 'inventory': 'Inventory Static Z', 'job_slice_count': 1, 'job_tags': '', 'job_type': 'run', 'limit': '',
    'prevent_instance_group_fallback': False, 'scm_branch': '', 'skip_tags': '', 'start_at_task': '', 'survey_enabled': False, 'timeout': 0,
    'use_fact_cache': False, 'verbosity': 0,
-   'survey': {}, 'extra_vars': {'aap_version': '{{ aap_version }}', 'object_set': 'A', 'delete_objects': true, 'wait_project_sync': true},
+   'survey': {}, 'extra_vars': {'aap_version': '{{ aap_version }}', 'object_set': 'B', 'delete_objects': true, 'wait_project_sync': true},
    'webhook_service': '', 'webhook_credential': '', 'creds': ['Credential Z (controller)', 'Credential Z (hub)', 'Credential Z (gw)', 'Credential Z (vault)', 'Credential Z (api endpoint)'],
    'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': []}
 ] # type: ignore

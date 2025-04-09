@@ -1,5 +1,7 @@
 hub_objects_collections: [
-  {'namespace': 'community', 'name': 'general', 'filename': 'community-general-8.2.0.tar.gz'}
+  {'namespace': 'community', 'name': 'general', 'filename': 'community-general-8.2.0.tar.gz'},
+
+  {'namespace': 'configify', 'name': 'aapconfig', 'filename': 'configify-aapconfig-{{ version }}.tar.gz'}
 ] # type: ignore
 
 controller_settings_authentication: {
@@ -15,6 +17,7 @@ controller_settings_jobs: {
         'AWX_ISOLATION_SHOW_PATHS': [
             '/tmp'
         ],
+        'GALAXY_IGNORE_CERTS': true,
         'PROJECT_UPDATE_VVV': true
     } # type: ignore
 
@@ -366,7 +369,7 @@ controller_objects_organizations: [
   {'name': 'Org C', 'descr': '', 'creds': ['Credential C']},
   {'name': 'Org D', 'descr': '', 'creds': []},
   {'name': 'Org E', 'descr': '', 'creds': []},
-  {'name': 'Org Z', 'descr': '', 'creds': ['Ansible Galaxy', 'Credential Z (hub sync)']}
+  {'name': 'Org Z', 'descr': '', 'creds': ['Credential Z (hub sync)', 'Ansible Galaxy']}
 ] # type: ignore
 
 controller_objects_notification_profiles: [
