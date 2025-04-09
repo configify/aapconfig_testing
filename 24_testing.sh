@@ -8,10 +8,9 @@ echo -e "\033[1;92m
 ######################################################################################################################################
 ####### Copy tarballs and build collection
 ######################################################################################################################################\033[0m"
+ansible -m infra.ah_configuration.ah_build -a "path=ansible_collections/configify/aapconfig/ force=true output_path=collections_tarballs" localhost
 sudo mkdir -p /runner/project
 sudo cp -r collections_tarballs /runner/project
-sudo chmod a+w /runner/project/collections_tarballs
-ansible -m infra.ah_configuration.ah_build -a "path=ansible_collections/configify/aapconfig/ force=true output_path=/runner/project/collections_tarballs/" localhost
 
 
 echo -e "\033[1;92m
