@@ -29,7 +29,10 @@ ansible-test sanity
   - export_24_A.txt
   - export_24_B.txt
 
-- Build collection and import into HUB
+- If everything looks good test running things in AAP:
+  - push new collection (and other changes) into testing repo
+  - sync Project Z
+  - run Template Z
 
 
 ### Testing against AAP 2.5
@@ -45,4 +48,7 @@ ansible-test sanity
   - export_25_A.txt
   - export_25_B.txt
 
-- Build collection and import into HUB
+- If everything looks good test running things in AAP:
+  - push new collection (and other changes) into testing repo
+  - sync Project Z
+  - run Template Z
