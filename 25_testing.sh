@@ -6,8 +6,9 @@ set -e
 
 echo -e "\033[1;92m
 ######################################################################################################################################
-####### Copy tarballs
+####### Copy tarballs and build collection
 ######################################################################################################################################\033[0m"
+ansible -m infra.ah_configuration.ah_build -a "path=ansible_collections/configify/aapconfig/ force=true output_path=collections_tarballs" localhost
 sudo mkdir -p /runner/project
 sudo cp -r collections_tarballs /runner/project
 
@@ -16,7 +17,8 @@ echo -e "\033[1;92m
 ######################################################################################################################################
 ####### APPLY: Null
 ######################################################################################################################################\033[0m"
-ansible-playbook configure_aap_2.5_Null.yml -e delete_objects=true > exports/export_25_Null.txt 2>&1
+ansible-playbook configure_aap.yml -e aap_version=25 -e object_set=null -e delete_objects=true --vault-password-file ansible_vault\
+                 > exports/export_25_Null.txt 2>&1
 
 
 echo -e "\033[1;92m
@@ -30,7 +32,7 @@ echo -e "\033[1;92m
 ######################################################################################################################################
 ####### APPLY: Empty
 ######################################################################################################################################\033[0m"
-ansible-playbook configure_aap_2.5_Empty.yml -e delete_objects=true
+ansible-playbook configure_aap.yml -e aap_version=25 -e object_set=empty -e delete_objects=true --vault-password-file ansible_vault
 
 
 echo -e "\033[1;92m
@@ -44,14 +46,15 @@ echo -e "\033[1;92m
 ######################################################################################################################################
 ####### CHECK: Set A
 ######################################################################################################################################\033[0m"
-ansible-playbook configure_aap_2.5_SetA.yml --check
+ansible-playbook configure_aap.yml -e aap_version=25 -e object_set=A --vault-password-file ansible_vault --check
 
 
 echo -e "\033[1;92m
 ######################################################################################################################################
 ####### APPLY: Set A
 ######################################################################################################################################\033[0m"
-ansible-playbook configure_aap_2.5_SetA.yml -e delete_objects=true -e wait_project_sync=true -e trigger_inventory_sync=true
+ansible-playbook configure_aap.yml -e aap_version=25 -e object_set=A -e delete_objects=true -e wait_project_sync=true\
+                                   -e trigger_inventory_sync=true --vault-password-file ansible_vault
 
 
 echo -e "\033[1;92m
@@ -65,7 +68,9 @@ echo -e "\033[1;92m
 ######################################################################################################################################
 ####### APPLY: Set B | ORG limit
 ######################################################################################################################################\033[0m"
-ansible-playbook configure_aap_2.5_SetB.yml --tags controller_config -e "{'limit_organizations':['Org D','Org E']}" -e delete_objects=true -e wait_project_sync=true > exports/export_25_ORG_LIMIT.txt 2>&1
+ansible-playbook configure_aap.yml -e aap_version=25 -e object_set=B --tags controller_config -e "{'limit_organizations':['Org D','Org E']}"\
+                                   -e delete_objects=true -e wait_project_sync=true --vault-password-file ansible_vault\
+                 > exports/export_25_ORG_LIMIT.txt 2>&1
 
 
 echo -e "\033[1;92m
@@ -79,14 +84,15 @@ echo -e "\033[1;92m
 ######################################################################################################################################
 ####### CHECK: Set B
 ######################################################################################################################################\033[0m"
-ansible-playbook configure_aap_2.5_SetB.yml --check
+ansible-playbook configure_aap.yml -e aap_version=25 -e object_set=B --vault-password-file ansible_vault --check
 
 
 echo -e "\033[1;92m
 ######################################################################################################################################
 ####### APPLY: Set B
 ######################################################################################################################################\033[0m"
-ansible-playbook configure_aap_2.5_SetB.yml -e delete_objects=true -e wait_project_sync=true
+ansible-playbook configure_aap.yml -e aap_version=25 -e object_set=B -e delete_objects=true\
+                                   -e wait_project_sync=true --vault-password-file ansible_vault
 
 
 echo -e "\033[1;92m
@@ -100,14 +106,16 @@ echo -e "\033[1;92m
 ######################################################################################################################################
 ####### CHECK: Set B (idempotency)
 ######################################################################################################################################\033[0m"
-ansible-playbook configure_aap_2.5_SetB.yml --check > exports/export_25_B_idempotency_check.txt 2>&1
+ansible-playbook configure_aap.yml -e aap_version=25 -e object_set=B --vault-password-file ansible_vault --check\
+                 > exports/export_25_B_idempotency_check.txt 2>&1
 
 
 echo -e "\033[1;92m
 ######################################################################################################################################
 ####### APPLY: Set B (idempotency)
 ######################################################################################################################################\033[0m"
-ansible-playbook configure_aap_2.5_SetB.yml >> exports/export_25_B_idempotency_check.txt 2>&1
+ansible-playbook configure_aap.yml -e aap_version=25 -e object_set=B --vault-password-file ansible_vault\
+                 >> exports/export_25_B_idempotency_check.txt 2>&1
 
 
 echo -e "\033[1;92m
@@ -115,6 +123,13 @@ echo -e "\033[1;92m
 ####### VERIFY: Set B (idempotency)
 ######################################################################################################################################\033[0m"
 /bin/cat exports/export_25_B_idempotency_check.txt | grep changed
+
+
+echo -e "\033[1;92m
+######################################################################################################################################
+####### Cleanup
+######################################################################################################################################\033[0m"
+rm -rf /runner/project/collections_tarballs/configify*
 
 
 echo -e "\033[1;92m

@@ -1,3 +1,0 @@
----
-- name: Run playbook to configure AAP
-  import_playbook: configify.aapconfig.aap_configure.yml
