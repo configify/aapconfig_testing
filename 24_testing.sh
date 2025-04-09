@@ -90,7 +90,8 @@ echo -e "\033[1;92m
 ######################################################################################################################################
 ####### APPLY: Set A
 ######################################################################################################################################\033[0m"
-ansible-playbook configure_aap.yml -e aap_version=24 -e object_set=A -e delete_objects=true -e wait_project_sync=true -e trigger_inventory_sync=true --vault-password-file ansible_vault
+ansible-playbook configure_aap.yml -e aap_version=24 -e object_set=A -e delete_objects=true -e wait_project_sync=true\
+                                   -e trigger_inventory_sync=true --vault-password-file ansible_vault
 
 
 echo -e "\033[1;92m
@@ -141,7 +142,9 @@ echo -e "\033[1;92m
 ######################################################################################################################################
 ####### APPLY: Set B | ORG limit
 ######################################################################################################################################\033[0m"
-ansible-playbook configure_aap.yml -e aap_version=24 -e object_set=B --tags controller_config -e "{'limit_organizations':['Org D','Org E']}" -e delete_objects=true -e wait_project_sync=true --vault-password-file ansible_vault > exports/export_24_ORG_LIMIT.txt 2>&1
+ansible-playbook configure_aap.yml -e aap_version=24 -e object_set=B --tags controller_config -e "{'limit_organizations':['Org D','Org E']}"\
+                                   -e delete_objects=true -e wait_project_sync=true --vault-password-file ansible_vault\
+                 > exports/export_24_ORG_LIMIT.txt 2>&1
 
 
 echo -e "\033[1;92m
