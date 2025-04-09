@@ -1,6 +1,4 @@
 hub_objects_collections: [
-  {'namespace': 'community', 'name': 'general', 'filename': 'community-general-8.2.0.tar.gz'},
-
   {'namespace': 'configify', 'name': 'aapconfig', 'filename': 'configify-aapconfig-{{ version }}.tar.gz'}
 ] # type: ignore
 
