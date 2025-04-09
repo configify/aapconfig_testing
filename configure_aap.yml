@@ -23,6 +23,7 @@
 
         - name: Include galaxy.yml with current collection version
           ansible.builtin.include_vars: "ansible_collections/configify/aapconfig/galaxy.yml"
+          ignore_errors: true
 
         - name: Include var files unless null
           when: object_set != 'null'
