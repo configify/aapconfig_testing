@@ -6,6 +6,19 @@ hub_objects_collections: [
   {'namespace': 'configify', 'name': 'aapconfig', 'filename': 'configify-aapconfig-{{ version }}.tar.gz'}
 ] # type: ignore
 
+hub_objects_remotes: [
+  {'name': 'rh-certified', 'url': 'https://console.redhat.com/api/automation-hub/content/published/',
+   'auth_url': 'https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token', 'token': '{{ rhhub_pat }}',
+   'requirements': {'collections': [{'name': 'ansible.platform'}, {'name': 'ansible.controller'}]}},
+
+  {'name': 'community', 'url': 'https://galaxy.ansible.com/api/',
+   'auth_url': '', 'token': '', 'requirements': ''},
+
+  {'name': 'rh-certified-aws', 'url': 'https://console.redhat.com/api/automation-hub/content/published/',
+   'auth_url': 'https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token', 'token': '{{ rhhub_pat }}',
+   'requirements': {'collections': [{'name': 'amazon.aws'}]}},
+] # type: ignore
+
 controller_settings_authentication: {
         'AUTHENTICATION_BACKENDS': [
             'awx.sso.backends.LDAPBackend',
