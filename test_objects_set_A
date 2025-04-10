@@ -440,7 +440,7 @@ controller_objects_projects: [
    'allow_override': False, 'org': 'Org A', 'cred': 'Credential GitHub A', 'url': 'https://github.com/configify/hi.git', 'ee': 'Execution Environment A',
    'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': []},
 
-  {'name': 'Project Z', 'type': 'git', 'branch': 'aap_testing', 'clean_on_update': False, 'delete_on_update': False, 'update_on_launch': False,
+  {'name': 'Project Z', 'type': 'git', 'branch': '', 'clean_on_update': False, 'delete_on_update': False, 'update_on_launch': False,
    'allow_override': False, 'org': 'Org Z', 'cred': '', 'url': 'https://github.com/configify/aapconfig_testing.git', 'ee': '',
    'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': []}
 ] # type: ignore
