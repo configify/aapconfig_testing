@@ -16,6 +16,9 @@ with ""
 replace "    "hub_objects_collections""
 with "hub_objects_collections"
 
+replace "    "hub_objects_remotes""
+with "hub_objects_remotes"
+
 replace "    "controller_settings_ldap""
 with "controller_settings_ldap"
 
@@ -108,6 +111,15 @@ with "}"
 
 replace-regex ", 'superuser'"
 with ",\n   'superuser'"
+
+replace-regex ", 'repo_auth_url'"
+with ",\n   'repo_auth_url'"
+
+replace-regex ", 'repo_auth_token'"
+with ",\n   'repo_auth_token'"
+
+replace-regex ", 'requirements'"
+with ",\n   'requirements'"
 
 replace-regex ", 'inputs'"
 with ",\n   'inputs'"
