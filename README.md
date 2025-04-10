@@ -52,3 +52,40 @@ ansible-test sanity
   - push new collection (and other changes) into testing repo
   - sync Project Z
   - run Template Z
+
+
+# Configuring new test environment
+
+THese are the rough steps that would be required:
+
+1. Deploy desired version of AAP
+1. If new dev box:
+
+```
+pip install awxkit
+mkdir -p ansible_collections
+export ANSIBLE_COLLECTIONS_PATH=ansible_collections
+git clone https://github.com/configify/aapconfig_testing.git
+mkdir ansible_collections
+< install collections and export variables>
+```
+
+1. Update environment variables with:
+  - admin user personal tokens (CONTROLLER_OAUTH_TOKEN, GATEWAY_API_TOKEN)
+  - aap hostnames (CONTROLLER_HOST, AH_HOST, GATEWAY_HOSTNAME)
+
+1. Update **configure_aap.yml** with:
+  - hubsync hub tokens (**hub_pat** variables)
+
+
+# Testing with different python/pip versions
+
+As an example for ansible 2.16:
+
+```
+sudo dnf install python3.11 python3.11-pip
+pip3.11 install ansible-core==2.16.14 ansible-lint
+
+ansible --version
+ansible-lint --version
+```
