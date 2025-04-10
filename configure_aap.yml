@@ -23,14 +23,14 @@
 
         - name: Include galaxy.yml with current collection version
           ansible.builtin.include_vars: "ansible_collections/configify/aapconfig/galaxy.yml"
-          ignore_errors: true
+          ignore_errors: true # noqa: ignore-errors
 
         - name: Include var files unless null
           when: object_set != 'null'
           block:
             - name: Include all vars
               ansible.builtin.include_vars: "test_objects_set_{{ object_set }}"
-          
+
             - name: Include role vars
               ansible.builtin.include_vars: "test_objects_set_{{ object_set }}_roles_{{ aap_version }}"
 
