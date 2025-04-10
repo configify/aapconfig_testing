@@ -7,15 +7,19 @@ hub_objects_collections: [
 ] # type: ignore
 
 hub_objects_remotes: [
-  {'name': 'rh-certified', 'url': 'https://console.redhat.com/api/automation-hub/content/published/',
-   'auth_url': 'https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token', 'token': '{{ rhhub_pat }}',
+  {'name': 'rh-certified', 'repo_url': 'https://console.redhat.com/api/automation-hub/content/published/',
+   'repo_auth_url': 'https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token',
+   'repo_auth_token': '{{ rhhub_pat }}',
    'requirements': {'collections': [{'name': 'ansible.platform'}, {'name': 'ansible.controller'}]}},
 
-  {'name': 'community', 'url': 'https://galaxy.ansible.com/api/',
-   'auth_url': '', 'token': '', 'requirements': ''},
+  {'name': 'community', 'repo_url': 'https://galaxy.ansible.com/api/',
+   'repo_auth_url': '',
+   'repo_auth_token': '',
+   'requirements': ''},
 
-  {'name': 'rh-certified-aws', 'url': 'https://console.redhat.com/api/automation-hub/content/published/',
-   'auth_url': 'https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token', 'token': '{{ rhhub_pat }}',
+  {'name': 'rh-certified-aws', 'repo_url': 'https://console.redhat.com/api/automation-hub/content/published/',
+   'repo_auth_url': 'https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token',
+   'repo_auth_token': '{{ rhhub_pat }}',
    'requirements': {'collections': [{'name': 'amazon.aws'}]}},
 ] # type: ignore
 
@@ -259,15 +263,9 @@ controller_objects_credential_types: [
    'injectors': {'extra_vars': {'configifyadpass': !unsafe '{{ passwordC }}',
                                 'configifyaduser': !unsafe '{{ usernameC }}'}}},
 
-  {'name': 'Credential Type Z (hub)', 'descr': '',
-   'inputs': {'fields': [{'id': 'hub_host', 'type': 'string', 'label': 'Hub host'},
-                         {'id': 'hub_user', 'type': 'string', 'label': 'Hub user'},
-                         {'id': 'hub_pass', 'type': 'string', 'label': 'Hub password', 'secret': true},
-                         {'id': 'hub_ssl_verify', 'type': 'boolean', 'label': 'Verify SSL'}]},
-   'injectors': {'env': {'AH_HOST': !unsafe '{{ hub_host }}',
-                         'AH_USERNAME': !unsafe '{{ hub_user }}',
-                         'AH_PASSWORD': !unsafe '{{ hub_pass }}',
-                         'AH_VERIFY_SSL': !unsafe '{{ hub_ssl_verify }}'}}},
+  {'name': 'Credential Type Z (api endpoint)', 'descr': '',
+   'inputs': {'fields': [{'id': 'api_prefix', 'type': 'string', 'label': 'API prefix'}]},
+   'injectors': {'env': {'CONTROLLER_OPTIONAL_API_URLPATTERN_PREFIX': !unsafe '{{ api_prefix }}'}}},
 
   {'name': 'Credential Type Z (gw)', 'descr': '',
    'inputs': {'fields': [{'id': 'gw_host', 'type': 'string', 'label': 'Gateway host'},
@@ -277,9 +275,15 @@ controller_objects_credential_types: [
                          'GATEWAY_API_TOKEN': !unsafe '{{ gw_pat }}',
                          'GATEWAY_VERIFY_SSL': !unsafe '{{ gw_ssl_verify }}'}}},
 
-  {'name': 'Credential Type Z (api endpoint)', 'descr': '',
-   'inputs': {'fields': [{'id': 'api_prefix', 'type': 'string', 'label': 'API prefix'}]},
-   'injectors': {'env': {'CONTROLLER_OPTIONAL_API_URLPATTERN_PREFIX': !unsafe '{{ api_prefix }}'}}}
+  {'name': 'Credential Type Z (hub)', 'descr': '',
+   'inputs': {'fields': [{'id': 'hub_host', 'type': 'string', 'label': 'Hub host'},
+                         {'id': 'hub_user', 'type': 'string', 'label': 'Hub user'},
+                         {'id': 'hub_pass', 'type': 'string', 'label': 'Hub password', 'secret': true},
+                         {'id': 'hub_ssl_verify', 'type': 'boolean', 'label': 'Verify SSL'}]},
+   'injectors': {'env': {'AH_HOST': !unsafe '{{ hub_host }}',
+                         'AH_PASSWORD': !unsafe '{{ hub_pass }}',
+                         'AH_USERNAME': !unsafe '{{ hub_user }}',
+                         'AH_VERIFY_SSL': !unsafe '{{ hub_ssl_verify }}'}}}
 ] # type: ignore
 
 controller_objects_credentials: [
@@ -331,18 +335,15 @@ controller_objects_credentials: [
    'inputs': {'password': 'HIDDEN', 'username': 'ccc', 'become_method': '', 'become_username': ''},
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
 
+  {'name': 'Credential Z (api endpoint)', 'org': 'Org Z', 'descr': '', 'type': 'Credential Type Z (api endpoint)',
+   'inputs': {'api_prefix': '{{ api_prefix[aap_version] }}'},
+   'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
+
   {'name': 'Credential Z (controller)', 'org': 'Org Z', 'descr': '', 'type': 'Red Hat Ansible Automation Platform',
    'inputs': {'host': '{{ lookup("ansible.builtin.env", "CONTROLLER_HOST") }}',
               'username': '',
               'verify_ssl': '{{ lookup("ansible.builtin.env", "CONTROLLER_VERIFY_SSL") | bool }}',
               'oauth_token': '{{ lookup("ansible.builtin.env", "CONTROLLER_OAUTH_TOKEN") }}'},
-   'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
-
-  {'name': 'Credential Z (hub)', 'org': 'Org Z', 'descr': '', 'type': 'Credential Type Z (hub)',
-   'inputs': {'hub_host': '{{ lookup("ansible.builtin.env", "AH_HOST") }}',
-              'hub_user': '{{ lookup("ansible.builtin.env", "AH_USERNAME") }}',
-              'hub_pass': '{{ lookup("ansible.builtin.env", "AH_PASSWORD") }}',
-              'hub_ssl_verify': '{{ lookup("ansible.builtin.env", "AH_VERIFY_SSL") | bool }}'},
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
 
   {'name': 'Credential Z (gw)', 'org': 'Org Z', 'descr': '', 'type': 'Credential Type Z (gw)',
@@ -359,12 +360,15 @@ controller_objects_credentials: [
    'inputs': {'url': 'https://{{ hub_endpoint[aap_version] }}/api/galaxy/', 'token': '{{ hub_pat[aap_version] }}', 'auth_url': ''},
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
 
-  {'name': 'Credential Z (vault)', 'org': 'Org Z', 'descr': '', 'type': 'Vault',
-   'inputs': {'vault_id': '', 'vault_password': '{{ lookup("ansible.builtin.env", "AH_PASSWORD") }}'},
+  {'name': 'Credential Z (hub)', 'org': 'Org Z', 'descr': '', 'type': 'Credential Type Z (hub)',
+   'inputs': {'hub_host': '{{ lookup("ansible.builtin.env", "AH_HOST") }}',
+              'hub_pass': '{{ lookup("ansible.builtin.env", "AH_PASSWORD") }}',
+              'hub_user': '{{ lookup("ansible.builtin.env", "AH_USERNAME") }}',
+              'hub_ssl_verify': '{{ lookup("ansible.builtin.env", "AH_VERIFY_SSL") | bool }}'},
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''},
 
-  {'name': 'Credential Z (api endpoint)', 'org': 'Org Z', 'descr': '', 'type': 'Credential Type Z (api endpoint)',
-   'inputs': {'api_prefix': '{{ api_prefix[aap_version] }}'},
+  {'name': 'Credential Z (vault)', 'org': 'Org Z', 'descr': '', 'type': 'Vault',
+   'inputs': {'vault_id': '', 'vault_password': '{{ lookup("ansible.builtin.env", "AH_PASSWORD") }}'},
    'src_input_field_name': '', 'src_credential': '', 'src_metadata': ''}
 ] # type: ignore
 
@@ -621,7 +625,7 @@ controller_objects_templates: [
    'prevent_instance_group_fallback': False, 'scm_branch': '', 'skip_tags': '', 'start_at_task': '', 'survey_enabled': False, 'timeout': 0,
    'use_fact_cache': False, 'verbosity': 0,
    'survey': {}, 'extra_vars': {'aap_version': '{{ aap_version }}', 'object_set': 'B', 'delete_objects': true, 'wait_project_sync': true, 'version': '{{ version }}'},
-   'webhook_service': '', 'webhook_credential': '', 'creds': ['Credential Z (controller)', 'Credential Z (hub)', 'Credential Z (gw)', 'Credential Z (vault)', 'Credential Z (api endpoint)'],
+   'webhook_service': '', 'webhook_credential': '', 'creds': ['Credential Z (api endpoint)', 'Credential Z (controller)', 'Credential Z (gw)', 'Credential Z (hub)', 'Credential Z (vault)'],
    'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': []}
 ] # type: ignore
 
@@ -657,8 +661,8 @@ controller_objects_workflows: [
    'ask_inventory_on_launch': False,
    'ask_labels_on_launch': False, 'ask_limit_on_launch': False, 'ask_scm_branch_on_launch': False,
    'ask_skip_tags_on_launch': False, 'ask_tags_on_launch': False,
-   'ask_variables_on_launch': False, 'extra_vars': {}, 'job_tags': '', 'limit': '', 'scm_branch': '', 'skip_tags': '', 'survey_enabled': False, 'webhook_credential': '',
-   'survey': {},
+   'ask_variables_on_launch': False, 'extra_vars': {}, 'job_tags': '', 'limit': '', 'scm_branch': '', 'skip_tags': '', 'survey_enabled': False,
+   'survey': {}, 'webhook_credential': '',
    'webhook_service': '',
    'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': [], 'notifications_on_approval': [],
    'nodes': [{'extra_data': {}, 'scm_branch': '', 'job_type': '', 'job_tags': '', 'skip_tags': '', 'limit': '', 'diff_mode': '', 'verbosity': '', 'forks': '', 'job_slice_count': '', 'timeout': '',
@@ -675,10 +679,10 @@ controller_objects_workflows: [
    'ask_inventory_on_launch': False,
    'ask_labels_on_launch': False, 'ask_limit_on_launch': False, 'ask_scm_branch_on_launch': False,
    'ask_skip_tags_on_launch': False, 'ask_tags_on_launch': False,
-   'ask_variables_on_launch': False, 'extra_vars': {}, 'job_tags': '', 'limit': '', 'scm_branch': '', 'skip_tags': '', 'survey_enabled': False, 'webhook_credential': '',
+   'ask_variables_on_launch': False, 'extra_vars': {}, 'job_tags': '', 'limit': '', 'scm_branch': '', 'skip_tags': '', 'survey_enabled': False,
    'survey': {'name': '', 'spec': [{'max': 1024, 'min': 0, 'type': 'text', 'choices': '', 'default': '', 'required': True, 'variable': 'template_c_variable_1', 'new_question': True, 'question_name': 'template_c_variable_1', 'question_description': ''},
                                    {'max': 1024, 'min': 0, 'type': 'text', 'choices': '', 'default': '', 'required': True, 'variable': 'template_c_variable_2', 'new_question': True, 'question_name': 'template_c_variable_2', 'question_description': ''}],
-              'description': ''},
+              'description': ''}, 'webhook_credential': '',
    'webhook_service': '',
    'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': [], 'notifications_on_approval': [],
    'nodes': [{'extra_data': {}, 'scm_branch': '', 'job_type': '', 'job_tags': '', 'skip_tags': '', 'limit': '', 'diff_mode': '', 'verbosity': '', 'forks': '', 'job_slice_count': '', 'timeout': '',
@@ -704,8 +708,8 @@ controller_objects_workflows: [
    'ask_inventory_on_launch': False,
    'ask_labels_on_launch': False, 'ask_limit_on_launch': False, 'ask_scm_branch_on_launch': False,
    'ask_skip_tags_on_launch': False, 'ask_tags_on_launch': False,
-   'ask_variables_on_launch': False, 'extra_vars': {}, 'job_tags': '', 'limit': '', 'scm_branch': '', 'skip_tags': '', 'survey_enabled': False, 'webhook_credential': '',
-   'survey': {},
+   'ask_variables_on_launch': False, 'extra_vars': {}, 'job_tags': '', 'limit': '', 'scm_branch': '', 'skip_tags': '', 'survey_enabled': False,
+   'survey': {}, 'webhook_credential': '',
    'webhook_service': '',
    'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': [], 'notifications_on_approval': [],
    'nodes': []},
@@ -715,8 +719,8 @@ controller_objects_workflows: [
    'ask_inventory_on_launch': False,
    'ask_labels_on_launch': False, 'ask_limit_on_launch': False, 'ask_scm_branch_on_launch': False,
    'ask_skip_tags_on_launch': False, 'ask_tags_on_launch': False,
-   'ask_variables_on_launch': False, 'extra_vars': {}, 'job_tags': '', 'limit': '', 'scm_branch': '', 'skip_tags': '', 'survey_enabled': False, 'webhook_credential': '',
-   'survey': {},
+   'ask_variables_on_launch': False, 'extra_vars': {}, 'job_tags': '', 'limit': '', 'scm_branch': '', 'skip_tags': '', 'survey_enabled': False,
+   'survey': {}, 'webhook_credential': '',
    'webhook_service': '',
    'notifications_on_start': [], 'notifications_on_success': [], 'notifications_on_failure': [], 'notifications_on_approval': [],
    'nodes': []}
