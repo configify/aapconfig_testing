@@ -7,12 +7,20 @@ TLDR:
 1. Test 2.5 -> Compare exports to set A/B
 1. Build collection and test in Hub 2.4/2.5
 
+
 ## Linting
 
+Assuming we are in the repo root and that Controller, Hub (and Gateway if required) environment variables are set, run:
+
 ```
+export ANSIBLE_COLLECTIONS_PATH=ansible_collections &&
+rm -rf ~/.cache &&
 ansible-lint * &&
-ansible-test sanity
+cd ansible_collections/configify/aapconfig/ &&
+ansible-test sanity --skip-test shebang --skip-test line-endings &&
+cd ../../..
 ```
+
 
 ## Testing from command line
 
@@ -56,7 +64,7 @@ ansible-test sanity
 
 # Configuring new test environment
 
-THese are the rough steps that would be required:
+These are the rough steps that would be required:
 
 1. Deploy desired version of AAP
 1. If new dev box:
